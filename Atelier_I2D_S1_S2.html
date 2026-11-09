@@ -1,0 +1,3396 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Atelier de révision I2D pour la Première STI2D. Formules expliquées, exercices, thèmes et préparation au DS.">
+<title>Atelier I2D · Séquences 1 et 2</title>
+<style>
+:root {
+  color-scheme: light;
+  --paper:#f5f6f9;
+  --white:#fff;
+  --ink:#162345;
+  --muted:#4a5770;
+  --blue:#214aca;
+  --blue-dark:#1739a0;
+  --blue-wash:#e8eeff;
+  --lemon:#ffcc6c;
+  --line:#d9dfed;
+  --green:#185c47;
+  --green-wash:#e4f4ec;
+  --warn:#733d19;
+  --warm:#fff3de;
+  --r:18px;
+}
+* { box-sizing:border-box }
+html { scroll-padding-top:110px }
+body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+button,input,select,textarea { font:inherit }
+button { cursor:pointer }
+button:disabled { cursor:default }
+[hidden] { display:none!important }
+:focus-visible { outline:3px solid #9a4900; outline-offset:4px }
+a { color:var(--blue-dark) }
+.skip { position:fixed; z-index:8; left:12px; top:12px; transform:translateY(-170%); background:#fff; padding:10px; }
+.skip:focus { transform:none }
+.top { background:rgba(255,255,255,.97); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:3; }
+.top-inner,.wrap { width:min(1216px,100%); margin:0 auto; padding-inline:clamp(15px,4vw,42px); }
+.top-inner { min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding-block:7px; }
+.brand { min-height:44px; border:0; background:none; display:flex; align-items:center; gap:9px; padding:0; text-align:left; color:var(--ink); font-weight:850; letter-spacing:-.025em; }
+.brand-mark { display:grid; place-items:center; width:40px; height:36px; color:#fff; background:var(--blue); border-radius:10px; font-size:.83rem; font-weight:850; letter-spacing:-.04em; }
+.nav { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+.nav button,.filter,.tab { border:1px solid transparent; background:transparent; color:var(--ink); border-radius:10px; padding:8px 11px; min-height:44px; font-weight:690; }
+.nav button[aria-current=page],.filter[aria-pressed=true],.tab[aria-pressed=true] { background:var(--blue-wash); color:var(--blue-dark); border-color:#b9c7f3; }
+.nav button:hover,.filter:hover,.tab:hover { background:#eef2fb; }
+.wrap { padding-block:clamp(20px,4.3vw,50px); }
+h1,h2,h3,h4,p { margin:0 }
+h1,h2,h3,h4 { text-wrap:balance; }
+h1 { font-size:clamp(2rem,5.8vw,4.45rem); line-height:1.03; letter-spacing:-.061em; font-weight:860; }
+h2 { font-size:clamp(1.31rem,3vw,2rem); line-height:1.15; letter-spacing:-.034em; }
+h3 { font-size:1.12rem; line-height:1.27; letter-spacing:-.013em; }
+h4 { font-size:1.02rem }
+.lede { max-width:64ch; color:var(--muted); font-size:clamp(1rem,1.6vw,1.17rem); }
+.eyebrow { text-transform:uppercase; letter-spacing:.115em; font-weight:820; font-size:.76rem; color:var(--blue-dark); }
+.muted { color:var(--muted) }
+.small { font-size:.88rem }
+.stack>*+* { margin-top:13px; }
+.gap-top { margin-top:clamp(20px,3vw,34px); }
+.page-head { display:grid; gap:10px; margin-bottom:22px; }
+.page-head h1 { font-size:clamp(1.95rem,4.8vw,3.58rem); }
+.hero { display:grid; grid-template-columns:minmax(0,1.09fr) minmax(0,.91fr); gap:clamp(15px,4vw,50px); align-items:center; background:var(--white); border:1px solid var(--line); border-radius:27px; padding:clamp(20px,4vw,48px); }
+.hero h1 { max-width:14ch; }
+.hero-note { font-size:.92rem; font-weight:680; color:var(--muted); }
+.actions { display:flex; align-items:center; flex-wrap:wrap; gap:9px; }
+.btn,.quiet,.link-btn { border:1px solid transparent; border-radius:11px; padding:9px 14px; min-height:46px; display:inline-flex; align-items:center; justify-content:center; color:#fff; background:var(--blue); text-align:center; font-weight:750; line-height:1.25; }
+.btn:hover { background:var(--blue-dark); }
+.btn.secondary { background:white; border-color:#a9b6d5; color:var(--blue-dark); }
+.btn.secondary:hover { background:var(--blue-wash); }
+.quiet,.link-btn { background:none; color:var(--blue-dark); text-decoration:underline; padding-inline:8px; }
+.quiet:hover,.link-btn:hover { background:var(--blue-wash); }
+.hero .btn { min-height:52px; }
+.grid { display:grid; gap:14px; grid-template-columns:repeat(3,minmax(0,1fr)); }
+.grid.two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.card,.panel { border:1px solid var(--line); background:var(--white); border-radius:var(--r); padding:clamp(14px,2.35vw,24px); min-width:0; }
+.card { display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+.card p { flex:1; }
+.card .link-btn { padding-inline:0; justify-content:flex-start; text-align:left; }
+.card .btn { margin-top:3px; }
+.card.hot { border-color:#acbdf8; background:#f4f6ff; }
+.grid-title { display:flex; align-items:baseline; flex-wrap:wrap; gap:6px 12px; margin-bottom:12px; }
+.badge { display:inline-flex; align-items:center; border-radius:999px; background:var(--blue-wash); color:var(--blue-dark); padding:4px 9px; font-weight:740; font-size:.78rem; }
+.badge.amber { color:#6b3b02; background:var(--warm); }
+.badge.ok { color:var(--green); background:var(--green-wash); }
+.band { background:var(--blue-wash); border:1px solid #becaf4; border-radius:var(--r); padding:clamp(14px,2.5vw,25px); }
+.control-bar { display:flex; flex-wrap:wrap; align-items:end; justify-content:space-between; gap:10px; margin-bottom:15px; }
+.control-bar .search { flex:1 0 min(100%,280px); max-width:500px; }
+.filters { display:flex; gap:4px; flex-wrap:wrap; }
+.group-block { margin-top:26px; }
+.group-block>p { margin:5px 0 12px; }
+.topic-btn { width:100%; min-height:48px; border:0; background:none; color:var(--blue-dark); font-weight:820; font-size:1.04rem; padding:0; text-align:left; }
+.topic-btn:hover { text-decoration:underline; }
+.mini-equation,.eq { font-family:ui-monospace,"SFMono-Regular",Consolas,monospace; font-weight:720; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.mini-equation { font-size:.86rem; color:var(--blue-dark); }
+.eq { font-size:clamp(.96rem,2.15vw,1.37rem); background:var(--blue-wash); color:#112f84; border:1px solid #c1cdf6; border-radius:12px; padding:10px 12px; }
+sub,sup { line-height:0; }
+.detail-grid { display:grid; gap:16px; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); align-items:start; }
+.symbols { display:flex; flex-wrap:wrap; gap:6px; }
+.symbol { min-width:44px; min-height:44px; padding:6px 11px; border:1px solid #adbbd9; background:white; border-radius:9px; color:var(--ink); font-weight:770; }
+.symbol[aria-pressed=true] { background:var(--blue); color:white; border-color:var(--blue); }
+.symbol-box { min-height:120px; background:#f3f6ff; border-radius:12px; padding:13px; }
+.symbol-box p+p { margin-top:4px; }
+summary { display:list-item; min-height:44px; padding:8px 0; cursor:pointer; font-weight:770; color:var(--blue-dark); }
+dl { margin:0; }
+dl>div { padding:8px 0; border-top:1px solid var(--line); }
+dt { font-weight:780; }
+dd { margin:2px 0 0; color:var(--muted); }
+.method { list-style:none; padding:0; margin:0; display:grid; gap:9px; counter-reset: steps; }
+.method li { display:grid; grid-template-columns:30px 1fr; gap:10px; align-items:start; counter-increment:steps; }
+.method li:before { content:counter(steps); display:grid; place-items:center; border-radius:8px; background:var(--lemon); color:#412e11; width:30px; height:30px; font-size:.9rem; font-weight:820; }
+.example { background:#f0f4ff; border-color:#c6d2f3; }
+.example p+ p { margin-top:7px; }
+.recall { background:var(--warm); border:1px solid #eacb97; border-radius:var(--r); padding:clamp(14px,2.35vw,24px); }
+.dense-list { padding-left:20px; margin-block:5px; }
+.dense-list li+li { margin-top:5px; }
+.sim { background:#172958; color:#f4f7ff; border:1px solid #2d4583; padding:clamp(15px,3.3vw,34px); border-radius:var(--r); min-width:0; }
+.sim .eyebrow,.sim .muted { color:#d7e2ff; }
+.sim-display { min-height:74px; color:var(--lemon); font-size:clamp(1.65rem,4.6vw,3.35rem); line-height:1.17; font-weight:850; font-variant-numeric:tabular-nums; letter-spacing:-.046em; }
+.sim-display .sim-caption { display:block; color:#f4f7ff; font-size:.93rem; font-weight:650; letter-spacing:0; line-height:1.4; margin-top:5px; }
+.sim input[type=range] { display:block; width:100%; min-height:44px; accent-color:var(--lemon); }
+.range-labels { display:flex; justify-content:space-between; gap:5px; color:#e2e9ff; font-size:.83rem; }
+.flow { display:flex; flex-wrap:wrap; align-items:stretch; gap:7px; }
+.flow button { min-height:44px; padding:7px 11px; border:1px solid #a8b8db; border-radius:9px; color:var(--blue-dark); background:white; text-align:left; font-weight:730; }
+.flow button[aria-pressed=true] { background:var(--blue); border-color:var(--blue); color:white; }
+.flow .arrow { display:inline-flex; align-items:center; font-weight:780; color:var(--blue-dark); }
+.sequence-svg { display:block; width:100%; max-width:680px; height:auto; border:1px solid #c6d2f3; background:#f4f7ff; border-radius:12px; }
+.sequence-svg text { fill:var(--ink); font:16px system-ui,sans-serif; }
+.sequence-svg .life { stroke:#7890bd; stroke-dasharray:5 5; }
+.sequence-svg .message-line { stroke:#24458e; stroke-width:2; }
+.sequence-svg .active .message-line { stroke:#a94e00; stroke-width:3; }
+.sequence-svg .reply { stroke-dasharray:7 5; }
+.sequence-svg .band-row { fill:transparent; }
+.sequence-svg .active .band-row { fill:#ffebc8; }
+.stations { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.station { width:100%; min-height:48px; padding:8px 10px; background:white; color:var(--ink); border:1px solid var(--line); border-radius:10px; display:flex; gap:8px; align-items:center; text-align:left; }
+.station b { display:grid; place-items:center; width:28px; height:28px; flex:none; border-radius:7px; background:#e5ebff; color:var(--blue-dark); }
+.station[aria-pressed=true] { border:2px solid var(--blue); background:#edf2ff; }
+.station small { margin-left:auto; color:var(--muted); text-align:right; }
+.ds-layout { display:grid; grid-template-columns:minmax(205px,.43fr) minmax(0,1fr); gap:14px; align-items:start; }
+.work-card { margin-top:14px; }
+.question-form { display:grid; gap:11px; }
+.question-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.field { min-width:0; }
+.field.wide { grid-column:1/-1; }
+label,.label { display:block; font-weight:720; margin-bottom:4px; }
+input:not([type=range]):not([type=file]),select,textarea { color:var(--ink); background:white; border:1px solid #899ab8; border-radius:9px; padding:9px 10px; font-size:16px; min-height:46px; width:100%; }
+textarea { min-height:94px; resize:vertical; }
+[readonly],select:disabled { background:#eef1f8!important; color:var(--ink); opacity:1; }
+.unit-field { display:flex; gap:7px; align-items:center; }
+.unit-field input { min-width:0; }
+.unit { color:var(--muted); font-weight:690; font-size:.87rem; flex:none; }
+.mark { display:block; font-size:.86rem; margin-top:3px; color:var(--muted); }
+.mark:empty,.feedback:empty,.notice:empty { display:none; }
+.mark[data-tone=good] { color:var(--green); }
+.mark[data-tone=retry] { color:var(--warn); }
+.feedback,.hint,.solution,.note { padding:10px 12px; background:var(--blue-wash); color:#173574; border-radius:10px; }
+.feedback[data-tone=good],.solution { color:#154c3b; background:var(--green-wash); }
+.feedback[data-tone=retry],.hint { color:var(--warn); background:var(--warm); }
+.hint p+p { margin-top:6px; }
+.problem { white-space:pre-line; }
+.bottom { display:flex; align-items:center; flex-wrap:wrap; gap:4px 10px; border-top:1px solid var(--line); margin-top:29px; padding-top:9px; }
+.bottom .storage { flex:1 1 230px; }
+.notice { color:var(--blue-dark); margin-top:4px; font-weight:690; }
+.list { list-style:none; margin:0; padding:0; }
+.list li+li { border-top:1px solid var(--line); }
+.list li { padding:7px 0; }
+.list button { text-align:left; }
+#rendu-preview { overflow-wrap:anywhere; }
+noscript { display:block; padding:20px; }
+@media (max-width:850px) {
+  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .top-inner { justify-content:flex-start; }
+}
+@media (max-width:620px) {
+  html { scroll-padding-top:16px; }
+  .top { position:static; }
+  .nav button { padding-inline:8px; font-size:.84rem; }
+  .hero,.detail-grid,.grid.two,.ds-layout { grid-template-columns:minmax(0,1fr); }
+  .hero { gap:17px; padding:17px; }
+  .grid { gap:9px; }
+  .grid .card { padding:11px; }
+  .question-fields { grid-template-columns:minmax(0,1fr); }
+  .sequence-svg text { font-size:18px; }
+  .flow .arrow { display:none; }
+}
+@media (max-width:345px) { .grid { grid-template-columns:1fr; } }
+@media print { .top,.bottom,.btn,.quiet,.link-btn,.filters,input[type=range] { display:none!important; } body{background:white;} .wrap{padding:0;} .panel,.card,.band{break-inside:avoid;} }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Aller au contenu</a>
+<header class="top">
+  <div class="top-inner">
+    <button class="brand" type="button" data-action="view" data-id="home"><span class="brand-mark" aria-hidden="true">I2D</span><span>Atelier I2D</span></button>
+    <nav id="main-nav" class="nav" aria-label="Navigation principale"></nav>
+  </div>
+</header>
+<main id="main" class="wrap" tabindex="-1"></main>
+<input id="import-file" type="file" accept=".json,application/json" hidden>
+<noscript>Active JavaScript pour utiliser les fiches et les exercices interactifs. Avec une calculatrice et une feuille, retrouve les relations E = P × t, R = e / λ et η = E utile / E absorbée, puis indique l’unité de chaque grandeur.</noscript>
+<script>
+const groups = [
+  {id:'base',name:'Énergie et conversions',lead:'Relier puissance, durée, énergie et rendement.'},
+  {id:'bilan',name:'Éclairage, batterie et coût',lead:'Compter les usages, dimensionner un stock et interpréter une économie.'},
+  {id:'chaleur',name:'Chaleur et isolation',lead:'Distinguer l’énergie de chauffe du transfert à travers une paroi.'},
+  {id:'impact',name:'Cycle de vie et impacts',lead:'Comparer à service équivalent, puis chiffrer les écarts.'},
+  {id:'production',name:'Ressources, vent et soleil',lead:'Relier une ressource au potentiel puis à la production.'},
+  {id:'trajet',name:'Trajets et énergie primaire',lead:'Passer de la distance à une comparaison énergétique.'}
+];
+const n = (key,label,unit,answer,tolerance=0.000001) => ({key,label,unit,answer,tolerance,type:'number'});
+const c = (key,label,options,correct) => ({
+  key,label,type:'choice',options:options.map((label,i)=>({value:String(i),label})),answer:String(correct)
+});
+const w = (key,label) => ({key,label,type:'text'});
+const task = (id,title,prompt,fields,hints,solution) => ({id,title,prompt,fields,hints,solution});
+const symbols = (...entries) => entries.map(([label,reading,meaning,unit])=>({label,reading,meaning,unit}));
+const formulas = [
+{
+  id:'ept', group:'base', seq:[1,2], title:'Énergie, puissance et durée', cue:'Tu connais deux grandeurs et tu cherches la troisième.',
+  eq:['E = P × t','P<sub>moy</sub> = E / Δt','t = E / P'],
+  defs:symbols(
+    ['E','lettre E','Énergie transférée ou consommée.','J, Wh ou kWh'],
+    ['P','lettre P','Puissance constante. Elle indique à quel rythme l’énergie est transférée.','W ou kW'],
+    ['Pₘₒᵧ','P moyenne','Puissance moyenne sur l’intervalle étudié.','W ou kW'],
+    ['t','lettre t','Durée d’utilisation.','s ou h'],
+    ['Δt','delta t','Durée entre deux instants. Delta indique un écart.','s ou h']
+  ),
+  method:['Entoure la grandeur cherchée, puis choisis la forme de la relation qui l’isole.','Associe W et s pour obtenir des J, W et h pour des Wh ou kW et h pour des kWh.','Remplace les valeurs et indique l’unité obtenue. Pour une puissance variable, travaille par périodes ou utilise la puissance moyenne sur la période.'],
+  memo:'La puissance donne le rythme. L’énergie est ce qui s’accumule pendant la durée.',
+  trap:'Une durée en minutes doit être convertie avant le produit. Le kW mesure une puissance et le kWh mesure une énergie.',
+  ex:['Un appareil de 240 W fonctionne à puissance constante pendant 45 min. Cherche son énergie en kWh.','240 W = 0,240 kW et 45 min = 45 ÷ 60 = 0,75 h.','E = 0,240 × 0,75 = 0,180 kWh. Si la durée double à puissance constante, l’énergie double.'],
+  exercise:task('F-EPT','Le ventilateur du fablab','Un ventilateur de 360 W tourne 35 min. Calcule son énergie en Wh, puis en kWh.',
+    [n('wh','Énergie','Wh',210),n('kwh','Même énergie','kWh',0.21)],
+    ['35 min correspond à 35 ÷ 60 h.','Commence par W × h. Divise les Wh par 1 000 pour obtenir des kWh.'],
+    't = 35/60 h. E = 360 × 35/60 = 210 Wh = 0,210 kWh.')
+},
+{
+  id:'unites', group:'base', seq:[1,2], title:'Convertir les énergies et les durées', cue:'Tu dois changer l’unité d’un résultat ou rendre un calcul cohérent.',
+  eq:['1 J = 1 W·s','1 ch ≈ 736 W','1 Wh = 3 600 J','1 kWh = 3,6 MJ = 3 600 000 J','1 tep ≈ 11,63 MWh ≈ 41,9 GJ','1 h = 60 min = 3 600 s'],
+  defs:symbols(
+    ['ch','cheval-vapeur','Unité de puissance utilisée dans le TD des véhicules.','≈ 736 W'],
+    ['J','joule','Unité d’énergie. W·s signifie watt multiplié par seconde.','1 kJ = 10³ J'],
+    ['Wh','wattheure','Énergie transférée à 1 W pendant 1 h.','1 kWh = 10³ Wh'],
+    ['MJ','mégajoule','Énergie en millions de joules.','1 MJ = 10⁶ J = 1 000 kJ'],
+    ['GJ','gigajoule','Énergie en milliards de joules.','1 GJ = 10⁹ J'],
+    ['tep','tonne équivalent pétrole','Unité d’énergie. Utilise l’arrondi imposé dans l’exercice.','≈ 11 630 kWh'],
+    ['k / M / G / T','kilo, méga, giga, téra','Préfixes qui multiplient l’unité par une puissance de dix.','10³, 10⁶, 10⁹, 10¹²']
+  ),
+  method:['Écris une égalité d’unités qui relie le départ à l’arrivée.','Multiplie pour passer à l’unité plus petite. Divise dans le sens inverse.','Pour une durée décimale, 0,5 h représente la moitié d’une heure, soit 30 min. Pour la puissance, 1 kW = 1 000 W.'],
+  memo:'Une heure contient 3 600 secondes. C’est de là que vient le 3 600 entre Wh et J.',
+  trap:'Passer de kWh à J combine deux facteurs, 1 000 et 3 600. Pour la tep, la lettre t n’indique pas la masse d’un combustible quelconque.',
+  ex:['Convertis 0,42 kWh en MJ et en J.','En MJ, multiplie par 3,6 : 0,42 × 3,6 = 1,512 MJ.','En J, multiplie les MJ par 10⁶ : 1 512 000 J.'],
+  exercise:task('F-CONV','Trois changements d’échelle','Convertis 2,75 kWh en MJ et 7,2 MJ en kWh. Dans un dossier, 1 tep est arrondie à 11,63 MWh. Convertis 34,89 MWh en tep.',
+    [n('mj','2,75 kWh','MJ',9.9),n('kwh','7,2 MJ','kWh',2),n('tep','34,89 MWh','tep',3)],
+    ['De kWh vers MJ, multiplie par 3,6. Dans l’autre sens, divise.','Pour la tep, demande-toi combien de blocs de 11,63 MWh sont contenus dans 34,89 MWh.'],
+    '2,75 × 3,6 = 9,9 MJ. 7,2 ÷ 3,6 = 2 kWh. 34,89 ÷ 11,63 = 3 tep.')
+},
+{
+  id:'combustion',group:'base',seq:[1,2],title:'Énergie d’un combustible et PCI',cue:'Tu connais la masse de combustible ou l’énergie à libérer.',
+  eq:['E<sub>libérée</sub> = m × PCI','m = E<sub>libérée</sub> / PCI','E<sub>utile</sub> = η × E<sub>libérée</sub>'],
+  defs:symbols(
+    ['E','lettre E','Énergie libérée par combustion ou part utile selon l’indice.','MJ, kWh ou J'],
+    ['m','lettre m minuscule','Masse de combustible.','kg'],
+    ['PCI','pouvoir calorifique inférieur','Énergie par unité de masse sans récupération de la chaleur de condensation de l’eau formée.','MJ/kg, kWh/kg ou J/kg'],
+    ['PCS','pouvoir calorifique supérieur','Inclut la chaleur de condensation de l’eau formée. Pour le même combustible qui produit de l’eau, le PCS dépasse le PCI.','Même unité que le PCI'],
+    ['η','êta','Rendement de l’appareil sous forme décimale.','Sans unité']
+  ),
+  method:['Vérifie si l’énoncé donne une valeur par kg ou par litre. Ici, travaille avec une masse en kg.','Multiplie par la masse pour l’énergie. Divise l’énergie par le PCI pour retrouver la masse.','Si l’énoncé cherche la chaleur utile et donne un rendement, applique-le à l’énergie libérée.'],
+  memo:'Le PCI dit ce que fournit un seul kg. Multiplie par le nombre de kg.',
+  trap:'Un PCI exprimé en MJ/kg ne se multiplie pas directement par des litres. Si une masse volumique est donnée, commence par obtenir la masse.',
+  ex:['On brûle 3,2 kg de granulés de PCI 17 MJ/kg. Le rendement utile est de 75 %.','Énergie libérée : 3,2 × 17 = 54,4 MJ.','Énergie utile : 54,4 × 0,75 = 40,8 MJ.'],
+  exercise:task('F-PCI','Approvisionner un appareil','Tu cherches à libérer 117 MJ avec un combustible de PCI 18 MJ/kg. Calcule la masse, puis choisis ce qui explique la différence entre PCI et PCS.',
+    [n('m','Masse','kg',6.5),c('pcs','Ce que le PCS inclut en plus',['La chaleur de condensation de l’eau formée','La masse totale de l’appareil','Les pertes électriques du moteur'],0)],
+    ['Isole la masse en divisant par l’énergie par kg.','Le S de PCS rappelle le bilan supérieur, qui prend en compte la condensation.'],
+    'm = 117 ÷ 18 = 6,5 kg. Le PCS inclut la chaleur récupérable par condensation de l’eau formée.')
+},
+{
+  id:'rendement',group:'base',seq:[1,2],title:'Rendement et bilan d’un convertisseur',cue:'Tu compares ce qui est reçu au service réellement utile.',
+  eq:['η = E<sub>u</sub> / E<sub>a</sub>','η = P<sub>u</sub> / P<sub>a</sub>','E<sub>hors service</sub> = E<sub>a</sub> − E<sub>u</sub>','η en % = 100 × η'],
+  defs:symbols(
+    ['η','êta','Rendement. La forme décimale sert dans les calculs.','Sans unité, souvent exprimé en %'],
+    ['Eᵤ','E indice u','Énergie utile, celle qui correspond au service recherché.','J ou kWh'],
+    ['Eₐ','E indice a','Énergie absorbée dans le périmètre retenu.','Même unité que Eᵤ'],
+    ['Pᵤ','P indice u','Puissance utile. Le rapport de puissances s’applique à des puissances constantes ou moyennes sur la même durée.','W ou kW'],
+    ['Pₐ','P indice a','Puissance absorbée.','Même unité que Pᵤ']
+  ),
+  method:['Fixe le service utile et la frontière du système.','Mets les deux énergies dans la même unité et calcule utile ÷ absorbée. Pour des puissances moyennes, conserve le même intervalle.','Multiplie par 100 pour le pourcentage. Sans autre apport ni variation du stock, la différence correspond aux transferts hors service utile.'],
+  memo:'Ce que je veux obtenir au-dessus de ce que je dois fournir.',
+  trap:'Si η = 75 %, emploie 0,75 pour calculer Eᵤ = η × Eₐ. Un rendement au-delà de 100 % indique ici un bilan incohérent ou un apport oublié.',
+  ex:['Un entraînement reçoit 420 kJ et fournit 294 kJ utiles.','η = 294 ÷ 420 = 0,70, soit 70 %.','Hors service utile : 420 − 294 = 126 kJ. Cette énergie a été transférée sous d’autres formes.'],
+  exercise:task('F-ETA','Un moteur et sa charge','Un moteur reçoit 640 J et transmet 448 J à la charge. Sans autre apport ni variation du stock, calcule le rendement et l’énergie hors service utile.',
+    [n('eta','Rendement','%',70),n('other','Énergie hors service utile','J',192)],
+    ['Mets l’énergie utile au numérateur.','Le reste se calcule par une différence d’énergies.'],
+    'η = 448 ÷ 640 = 0,70 soit 70 %. Les autres transferts représentent 640 − 448 = 192 J.')
+},
+{
+  id:'serie',group:'base',seq:[2],title:'Rendements successifs',cue:'L’énergie passe par plusieurs conversions l’une après l’autre.',
+  eq:['η<sub>global</sub> = η₁ × η₂ × …','E<sub>sortie</sub> = E<sub>entrée</sub> × η<sub>global</sub>'],
+  defs:symbols(
+    ['η₁, η₂','êta un, êta deux','Rendements des maillons successifs, sous forme décimale.','Sans unité'],
+    ['ηglobal','êta global','Rendement de l’ensemble.','Sans unité'],
+    ['Eentrée, Esortie','E entrée, E sortie','Énergies au début et à la fin de la chaîne.','Même unité']
+  ),
+  method:['Transforme chaque pourcentage en nombre décimal.','Multiplie les rendements quand la sortie du premier maillon alimente le suivant, sans autre apport.','Applique le produit à l’entrée. Tu peux aussi calculer les sorties successives pour contrôler.'],
+  memo:'Chaque maillon conserve une fraction de ce que le précédent lui transmet.',
+  trap:'Deux conversions à 80 % et 90 % ne s’additionnent pas. Le rendement global est inférieur à chacun des deux.',
+  ex:['Un ensemble reçoit 500 Wh. Deux maillons successifs ont des rendements de 90 % et 80 %.','À la sortie du premier : 500 × 0,90 = 450 Wh.','À la sortie du second : 450 × 0,80 = 360 Wh. Le produit vaut 0,72, soit 72 %.'],
+  exercise:task('F-SERIE','Un convertisseur suivi d’un moteur','La chaîne reçoit 1 200 J. Les deux rendements valent 85 % et 70 %. Calcule le rendement global et l’énergie utile en sortie.',
+    [n('eta','Rendement global','%',59.5),n('e','Énergie utile','J',714)],
+    ['Utilise les fractions 0,85 et 0,70.','Tu peux multiplier d’abord les fractions ou appliquer les deux transformations successivement.'],
+    'η global = 0,85 × 0,70 = 0,595, soit 59,5 %. E sortie = 1 200 × 0,595 = 714 J.')
+},
+{
+  id:'cop',group:'base',seq:[2],title:'COP d’une pompe à chaleur',cue:'La chaleur livrée provient d’un travail électrique et d’un prélèvement à l’extérieur.',
+  eq:['COP = Q<sub>livrée</sub> / E<sub>élec</sub>','Q<sub>livrée</sub> = E<sub>élec</sub> + Q<sub>ext</sub>'],
+  defs:symbols(
+    ['COP','coefficient de performance','Chaleur utile livrée par unité d’énergie électrique absorbée.','Sans unité'],
+    ['Qlivrée','Q chaleur livrée','Énergie thermique livrée au bâtiment.','kWh'],
+    ['Eélec','E électrique','Énergie électrique absorbée.','kWh'],
+    ['Qext','Q extérieur','Chaleur prélevée à l’extérieur dans ce modèle sans autres transferts.','kWh']
+  ),
+  method:['Relève la chaleur livrée et l’énergie électrique sur la même période.','Divise la chaleur livrée par l’électricité pour le COP.','Pour fermer le bilan simplifié, retranche l’électricité à la chaleur livrée.'],
+  memo:'Le COP compte la chaleur livrée pour un kWh d’électricité consommé.',
+  trap:'Un COP de 3 compte trois kWh de chaleur livrée par kWh électrique. Le bilan inclut aussi la chaleur prélevée.',
+  ex:['Une PAC livre 8,4 kWh de chaleur pour 2,4 kWh d’électricité.','COP = 8,4 ÷ 2,4 = 3,5.','Dans le modèle, 8,4 − 2,4 = 6 kWh viennent de l’extérieur.'],
+  exercise:task('F-COP','Les deux apports d’une PAC','Une PAC livre 12,6 kWh de chaleur et absorbe 3,5 kWh d’électricité. Calcule son COP et l’énergie prélevée à l’extérieur dans le modèle simplifié.',
+    [n('cop','COP','',3.6),n('ext','Chaleur extérieure','kWh',9.1)],
+    ['Le dénominateur du COP est l’électricité.','Pour le bilan, soustrais la part électrique à l’énergie livrée.'],
+    'COP = 12,6 ÷ 3,5 = 3,6. Chaleur prélevée = 12,6 − 3,5 = 9,1 kWh.')
+},
+{
+  id:'budget',group:'bilan',seq:[2],title:'Bilan d’énergie de plusieurs usages',cue:'Tu dois additionner un éclairage, un équipement, une veille ou plusieurs périodes.',
+  eq:['E<sub>poste</sub> = n × P × t','E<sub>total</sub> = Σ E<sub>poste</sub>','E<sub>annuelle</sub> = N × E<sub>jour</sub>'],
+  defs:symbols(
+    ['n','lettre n minuscule','Nombre d’appareils identiques sur un poste.','Nombre sans unité'],
+    ['P','lettre P','Puissance d’un appareil.','W ou kW'],
+    ['t','lettre t','Durée de ce poste.','h ou s'],
+    ['Σ','sigma majuscule','Signe de somme. Additionne les résultats poste par poste.','Même unité d’énergie'],
+    ['N','lettre N majuscule','Nombre de jours d’usage identique dans le modèle annuel.','Nombre sans unité'],
+    ['E','lettre E','Énergie du poste, du total ou de la période selon l’indice.','Wh ou kWh']
+  ),
+  method:['Crée une ligne par appareil ou mode. Par exemple, actif et veille.','Multiplie nombre × puissance unitaire × durée pour chaque ligne.','Additionne dans la même unité et sur la même période. Pour l’année, multiplie par le nombre de jours d’usage prévu.'],
+  memo:'Une ligne par usage. Une seule unité pour le total.',
+  trap:'Une économie sur l’éclairage seul n’est pas l’économie de tout le bâtiment. Pour comparer deux éclairages, garde le même service lumineux.',
+  ex:['Sur une journée, 5 lampes de 7 W fonctionnent 3 h et une radio de 12 W fonctionne 2 h.','Lampes : 5 × 7 × 3 = 105 Wh. Radio : 12 × 2 = 24 Wh.','Total : 129 Wh/jour. Sur 180 jours identiques, 129 × 180 = 23 220 Wh = 23,22 kWh.'],
+  exercise:task('F-BUD','Le local en usage et en veille','Trois lampes de 9 W fonctionnent 4 h. Un appareil consomme 22 W pendant 2 h, puis 3 W en veille pendant 22 h. Calcule le total journalier et le total pour 200 journées identiques en kWh.',
+    [n('jour','Total journalier','Wh',218),n('an','Total sur 200 jours','kWh',43.6)],
+    ['Calcule trois lignes. La veille est un poste à part.','Convertis le total en kWh après multiplication par 200.'],
+    'Lampes : 108 Wh. Appareil actif : 44 Wh. Veille : 66 Wh. Total : 218 Wh. Sur 200 jours, 43 600 Wh, soit 43,6 kWh.')
+},
+{
+  id:'batterie',group:'bilan',seq:[2],title:'Batterie, des ampères-heures aux Wh',cue:'La fiche de la batterie donne une tension et une capacité.',
+  eq:['E<sub>nom</sub> ≈ U × C','E<sub>utilisable</sub> = f × E<sub>nom</sub>','E<sub>charge</sub> = η × E<sub>utilisable</sub>'],
+  defs:symbols(
+    ['Enom','E nominale','Énergie nominale estimée à tension moyenne supposée constante.','Wh'],
+    ['U','lettre U','Tension moyenne retenue.','V'],
+    ['C','lettre C majuscule','Capacité en charge électrique, distincte de c minuscule en thermique.','Ah'],
+    ['f','lettre f','Fraction de l’énergie nominale supposée utilisable.','Sans unité'],
+    ['η','êta','Rendement du convertisseur avant la charge, s’il y en a un.','Sans unité'],
+    ['Echarge','E à la charge','Énergie qui peut atteindre l’appareil.','Wh']
+  ),
+  method:['Multiplie la tension moyenne en V par la capacité en Ah.','Applique la fraction utilisable sous forme décimale.','Applique le rendement si la charge est alimentée via un convertisseur donné.'],
+  memo:'Le volt manque aux Ah pour fabriquer des Wh.',
+  trap:'Une capacité de 30 Ah ne donne pas 30 Wh. La fraction utilisable et le rendement décrivent deux phénomènes différents.',
+  ex:['Batterie de 12 V et 35 Ah. 75 % d’énergie utilisable, puis convertisseur de 80 %.','Nominale : 12 × 35 = 420 Wh. Utilisable : 420 × 0,75 = 315 Wh.','À la charge : 315 × 0,80 = 252 Wh.'],
+  exercise:task('F-BATT','Une batterie pour l’atelier','Une batterie fournit une tension moyenne de 36 V et a une capacité de 15 Ah. 70 % de l’énergie nominale est utilisable. Un convertisseur a un rendement de 90 %. Calcule l’énergie nominale puis l’énergie livrable à la charge.',
+    [n('nom','Énergie nominale','Wh',540),n('charge','Énergie à la charge','Wh',340.2)],
+    ['V × Ah donne Wh.','Applique 0,70 puis 0,90 à l’énergie nominale.'],
+    '36 × 15 = 540 Wh. Énergie utilisable : 378 Wh. À la charge : 378 × 0,90 = 340,2 Wh.')
+},
+{
+  id:'autonomie',group:'bilan',seq:[2],title:'Autonomie et énergie nécessaire',cue:'Tu veux savoir combien de temps le stock peut alimenter un usage.',
+  eq:['t<sub>autonomie</sub> = E<sub>disponible</sub> / P<sub>charge</sub>','E<sub>nécessaire</sub> = P<sub>charge</sub> × t<sub>visé</sub>'],
+  defs:symbols(
+    ['t','lettre t','Durée possible ou visée.','h avec Wh et W'],
+    ['Edisponible','E disponible','Énergie que l’on peut réellement fournir à la charge.','Wh ou kWh'],
+    ['Pcharge','P à la charge','Puissance totale des appareils alimentés.','W ou kW']
+  ),
+  method:['Identifie l’énergie réellement disponible pour les appareils.','Additionne les puissances simultanées. À charge constante, divise l’énergie par cette puissance.','Si tu dimensionnes le stock, multiplie plutôt la puissance par la durée souhaitée.'],
+  memo:'Combien de temps ? Le stock divisé par ce qui est dépensé chaque heure.',
+  trap:'Un total en kWh divisé par des W impose une conversion. Une autonomie calculée suppose ici une puissance constante.',
+  ex:['Un stock de 270 Wh alimente une charge constante de 36 W.','t = 270 ÷ 36 = 7,5 h.','0,5 h = 30 min : cela correspond à 7 h 30 dans le modèle.'],
+  exercise:task('F-AUTO','L’éclairage d’un stand','Un stock peut livrer 372 Wh à un stand. Deux appareils de 14 W et 48 W restent allumés ensemble. Calcule l’autonomie et l’énergie nécessaire pour 9 h.',
+    [n('h','Autonomie','h',6),n('e','Énergie pour 9 h','Wh',558)],
+    ['Les deux appareils sont allumés ensemble : additionne leurs puissances.','Pour la durée, divise par la puissance totale. Pour un besoin d’énergie, multiplie par le temps voulu.'],
+    'Puissance : 14 + 48 = 62 W. Autonomie : 372 ÷ 62 = 6 h. Pour 9 h, 62 × 9 = 558 Wh.')
+},
+{
+  id:'cout',group:'bilan',seq:[2],title:'Coût variable d’un usage',cue:'Le sujet fournit un prix par kWh.',
+  eq:['Coût<sub>variable</sub> = E<sub>achetée</sub> × p'],
+  defs:symbols(
+    ['Eachetée','E achetée','Énergie mesurée ou achetée sur la période.','kWh'],
+    ['p','lettre p minuscule','Prix unitaire de l’énergie retenu par le sujet.','€/kWh'],
+    ['Coût','coût variable','Dépense proportionnelle à l’énergie consommée.','€']
+  ),
+  method:['Repère l’énergie achetée. Si tu connais seulement l’énergie utile, prends d’abord en compte le rendement.','Exprime cette énergie en kWh et multiplie par le tarif donné.','Indique la période et ce que le sujet exclut, par exemple l’abonnement.'],
+  memo:'kWh × € par kWh laisse des euros.',
+  trap:'Le prix unitaire du sujet est une donnée de calcul. Une dépense de facture complète peut comprendre d’autres postes.',
+  ex:['Un appoint consomme 780 kWh sur une année. Le prix fictif est de 0,22 €/kWh.','780 × 0,22 = 171,60 €.','Le résultat correspond à la part variable annuelle de l’appoint.'],
+  exercise:task('F-COUT','Le chauffage du local','Pour une année, un appareil fournit 756 kWh utiles avec un rendement de 90 %. Au prix fictif de 0,24 €/kWh, calcule l’énergie achetée et le coût variable.',
+    [n('kwh','Énergie achetée','kWh',840),n('cost','Coût variable','€',201.6)],
+    ['L’énergie achetée est supérieure à l’énergie utile si le rendement est inférieur à 100 %.','Divise d’abord par 0,90 puis applique le prix au kWh.'],
+    'E achetée = 756 ÷ 0,90 = 840 kWh. Coût variable = 840 × 0,24 = 201,60 €.')
+},
+{
+  id:'chauffe',group:'chaleur',seq:[2],title:'Chauffer une masse',cue:'Une masse monte en température sans changer d’état.',
+  eq:['ΔT = T<sub>f</sub> − T<sub>i</sub>','E<sub>utile</sub> = m × c × ΔT','ΔT = E<sub>utile</sub> / (m × c)'],
+  defs:symbols(
+    ['Δ','delta','Signe grec d’un écart. ΔT se lit delta T.','K ou écart de °C'],
+    ['Tᶠ, Tⁱ','T finale, T initiale','Températures finale et initiale. Le cours peut écrire Δθ, delta thêta.','°C ou K'],
+    ['m','lettre m','Masse chauffée.','kg'],
+    ['c','lettre c minuscule','Capacité thermique massique. Énergie nécessaire pour élever de 1 K la température de 1 kg du matériau.','J/(kg·K)'],
+    ['Eutile','E utile','Énergie transférée à la matière pour son échauffement.','J']
+  ),
+  method:['Calcule la différence finale − initiale. Un écart de 1 °C correspond à un écart de 1 K.','Convertis la masse en kg. Pour de l’eau, utilise 1 L ≈ 1 kg si le modèle l’autorise.','Multiplie par la valeur de c donnée dans l’exercice. Si tu étudies le chauffage, calcule séparément E absorbée avec P × t.'],
+  memo:'Chauffer davantage demande plus de masse chauffée, plus d’écart ou un matériau plus difficile à chauffer.',
+  trap:'Le calcul prend l’écart de température, jamais la température finale seule. Respecte la valeur de c du sujet, par exemple 4 180 ou 4 186.',
+  ex:['On chauffe 0,75 kg d’eau de 19 à 43 °C. Prends c = 4 180 J/(kg·K).','ΔT = 43 − 19 = 24 K.','E utile = 0,75 × 4 180 × 24 = 75 240 J, soit 75,24 kJ.'],
+  exercise:task('F-CHAUFFE','Chauffer un bac d’eau','Un bac contient 1,6 kg d’eau qui passe de 17 à 42 °C. Prends c = 4 180 J/(kg·K). Calcule l’écart et l’énergie utile.',
+    [n('delta','Écart de température','K',25),n('joules','Énergie utile','J',167200)],
+    ['L’écart est la température finale moins la température initiale.','Utilise m × c × ΔT. Vérifie l’annulation des kg et des K.'],
+    'ΔT = 42 − 17 = 25 K. E utile = 1,6 × 4 180 × 25 = 167 200 J.')
+},
+{
+  id:'couche',group:'chaleur',seq:[2],title:'Résistance et conductivité d’une couche',cue:'Tu compares les matériaux ou dimensionnes une épaisseur.',
+  eq:['R = e / λ','e = R × λ','λ = e / R'],
+  defs:symbols(
+    ['R','lettre R','Résistance thermique surfacique de la couche. Elle augmente avec l’opposition au transfert par conduction.','m²·K/W'],
+    ['e','lettre e minuscule','Épaisseur de la couche.','m'],
+    ['λ','lambda','Conductivité thermique du matériau. Plus elle est petite, moins le matériau conduit la chaleur à épaisseur égale.','W/(m·K)']
+  ),
+  method:['Convertis l’épaisseur en mètres.','Écris la relation qui isole l’inconnue R, e ou λ.','Compare à conditions égales. Une couche plus épaisse du même matériau donne un R plus élevé.'],
+  memo:'Épais et peu conducteur donnent un R élevé.',
+  trap:'Un R surfacique s’exprime en m²·K/W. L’inertie décrit le stockage et la restitution de chaleur, avec un effet dans le temps.',
+  ex:['Une couche de 9 cm a λ = 0,045 W/(m·K). On veut son R.','9 cm = 0,09 m.','R = 0,09 ÷ 0,045 = 2 m²·K/W.'],
+  exercise:task('F-COUCHE','Retrouver une épaisseur','Un isolant a une conductivité λ = 0,038 W/(m·K). On vise R = 2,5 m²·K/W. Calcule l’épaisseur en mètres et en centimètres.',
+    [n('m','Épaisseur','m',0.095),n('cm','Même épaisseur','cm',9.5)],
+    ['Isole e avant le calcul.','Multiplie R par λ. Un mètre correspond à 100 cm.'],
+    'e = R × λ = 2,5 × 0,038 = 0,095 m, soit 9,5 cm.')
+},
+{
+  id:'paroi',group:'chaleur',seq:[2],title:'Puissance thermique à travers une paroi',cue:'Une paroi sépare deux faces à des températures différentes.',
+  eq:['R<sub>tot</sub> = R₁ + R₂ + …','Φ = S × ΔT / R<sub>tot</sub>','R<sub>tot</sub> = S × ΔT / Φ','R<sub>glob</sub> = R<sub>tot</sub> / S'],
+  defs:symbols(
+    ['Φ','phi majuscule','Puissance thermique qui traverse la paroi. Le terme flux de chaleur peut désigner cette puissance dans le sujet.','W'],
+    ['S','lettre S','Surface de la paroi traversée.','m²'],
+    ['ΔT','delta T','Écart de température entre les deux faces retenues dans ce modèle.','K'],
+    ['Rtot','R total surfacique','Somme des résistances surfaciques des couches traversées en série.','m²·K/W'],
+    ['Rglob','R global','Résistance de la paroi pour cette surface.','K/W']
+  ),
+  method:['En régime permanent, repère la surface, l’écart et la résistance cherchée ou donnée.','Additionne les R surfaciques si la chaleur traverse des couches en série de même surface. Utilise les résistances indiquées dans le modèle.','Divise S × ΔT par R pour obtenir Φ. Si Φ est mesurée, isole R avant de remplacer les valeurs.'],
+  memo:'La chaleur traverse davantage si la surface ou l’écart augmente. Un grand R freine le transfert.',
+  trap:'Φ est une puissance en W. Une densité de flux vaut Φ/S en W/m². Le modèle des exercices peut négliger les ponts thermiques et les résistances superficielles.',
+  ex:['Deux couches de R = 0,7 et 1,8 m²·K/W couvrent 5 m². Les faces sont à 16 K d’écart.','R total surfacique = 0,7 + 1,8 = 2,5 m²·K/W.','Φ = 5 × 16 ÷ 2,5 = 32 W. R global = 2,5 ÷ 5 = 0,50 K/W.'],
+  exercise:task('F-PAROI','Deux couches en série','Une paroi de 6 m² comporte deux couches de résistances surfaciques 0,6 et 2,4 m²·K/W. Les faces sont à 21 K d’écart. En régime permanent simplifié, calcule R total, Φ et R global.',
+    [n('r','Résistance totale surfacique','m²·K/W',3),n('p','Puissance traversante','W',42),n('global','Résistance globale','K/W',0.5)],
+    ['Les deux résistances surfaciques s’additionnent.','Calcule ensuite S × ΔT/R. Pour R global, divise R total par la surface.'],
+    'R total = 3 m²·K/W. Φ = 6 × 21 ÷ 3 = 42 W. R global = 3 ÷ 6 = 0,50 K/W.')
+},
+{
+  id:'cuf',group:'impact',seq:[1],title:'Unité fonctionnelle et coefficient CUF',cue:'Deux produits doivent rendre le même service pendant des durées différentes.',
+  eq:['CUF = q<sub>besoin</sub> / q<sub>réf</sub>','I<sub>alloué</sub> = CUF × I<sub>unitaire</sub>'],
+  defs:symbols(
+    ['UF','unité fonctionnelle','Service quantifié avec sa performance et sa durée. Par exemple, éclairer une zone à un niveau donné pendant 9 000 h.','Définie par l’étude'],
+    ['CUF','coefficient d’unité fonctionnelle','Rapport qui ramène une unité de référence au service demandé, selon le modèle du cours.','Sans unité'],
+    ['qbesoin, qréf','quantité de service demandée, quantité de référence','Même service mesuré dans les mêmes unités, par exemple des heures ou des kilomètres.','h ou km'],
+    ['I','lettre I majuscule','Impact d’un exemplaire ou impact alloué au service.','Unité de l’indicateur, par ex. kg CO₂e']
+  ),
+  method:['Écris le service, son niveau de performance et la quantité demandée.','Divise cette quantité par ce que rend un exemplaire de référence.','Utilise le CUF pour l’allocation dans le modèle. Pour un achat réel, arrondis au nombre entier supérieur si les produits sont indivisibles.'],
+  memo:'Divise le service que tu veux par le service qu’un objet peut rendre.',
+  trap:'Un CUF de 0,75 est possible en allocation. Pour assurer le service avec des objets entiers, il faut ici un exemplaire.',
+  ex:['Il faut 7 200 h d’éclairage équivalent. Un luminaire dure 4 800 h et sa fabrication vaut 8 kg CO₂e.','CUF = 7 200 ÷ 4 800 = 1,5.','Impact alloué dans le modèle : 1,5 × 8 = 12 kg CO₂e. Pour l’achat, il faut 2 luminaires.'],
+  exercise:task('F-CUF','Comparer des durées de vie','Il faut 9 000 h d’éclairage équivalent. A dure 3 600 h, B dure 12 000 h. Calcule les deux CUF et le nombre d’exemplaires de A à acheter.',
+    [n('a','CUF de A','',2.5),n('b','CUF de B','',0.75),n('na','A à acheter','exemplaires',3)],
+    ['Le besoin de 9 000 h est le même au numérateur.','Pour l’achat, vérifie que le nombre entier retenu couvre les 9 000 h.'],
+    'CUF A = 2,5 et CUF B = 0,75. Il faut 3 exemplaires de A pour couvrir 9 000 h.')
+},
+{
+  id:'cycle',group:'impact',seq:[1],title:'Énergie grise et cycle de vie',cue:'Tu additionnes des étapes d’un cycle en respectant un périmètre annoncé.',
+  eq:['E<sub>grise</sub> = Σ E<sub>hors usage</sub>','E<sub>cycle</sub> = E<sub>grise</sub> + E<sub>usage</sub>'],
+  defs:symbols(
+    ['Σ','sigma majuscule','Somme des contributions retenues dans le périmètre.','Même unité pour toutes les contributions'],
+    ['Egrise','E grise','Ici, énergie d’extraction, fabrication, distribution et fin de vie. La convention peut varier.','MJ ou kWh'],
+    ['Eusage','E usage','Énergie consommée en phase d’usage.','Même unité'],
+    ['Ecycle','E du cycle','Énergie cumulée sur les étapes prises en compte.','Même unité']
+  ),
+  method:['Trace les étapes et écris lesquelles sont incluses dans l’énergie grise.','Mets les quantités d’énergie dans la même unité, puis additionne les étapes retenues.','Ajoute l’usage pour le total. Pour comparer des solutions, garde la même unité fonctionnelle et le même périmètre.'],
+  memo:'Grise ici : toutes les étapes comptées autour de l’usage. Total : ajoute l’usage.',
+  trap:'Les émissions en kg CO₂e et les énergies en MJ sont des indicateurs distincts. Additionne seulement des contributions du même indicateur.',
+  ex:['Extraction 9 MJ, fabrication 26, distribution 4, fin de vie 6, usage 54. Le périmètre gris exclut l’usage.','E grise = 9 + 26 + 4 + 6 = 45 MJ.','E cycle = 45 + 54 = 99 MJ.'],
+  exercise:task('F-CYCLE','Le bilan d’un équipement','Les postes extraction, fabrication, distribution et fin de vie valent 14, 31, 8 et 7 MJ. L’usage vaut 87 MJ. Calcule le gris hors usage, puis le total.',
+    [n('gris','Énergie grise','MJ',60),n('total','Cycle total','MJ',147)],
+    ['Repère l’étape exclue de l’énergie grise.','Le total inclut aussi les 87 MJ d’usage.'],
+    'Hors usage : 14 + 31 + 8 + 7 = 60 MJ. Total : 60 + 87 = 147 MJ.')
+},
+{
+  id:'emissions',group:'impact',seq:[1,2],title:'Quantité et facteur d’émission',cue:'Un dossier donne des émissions par kilomètre, par litre ou par kWh.',
+  eq:['M<sub>émissions</sub> = q × FE','M<sub>total</sub> = Σ M<sub>poste</sub>'],
+  defs:symbols(
+    ['Mémissions','M émissions','Masse de CO₂ ou de CO₂ équivalent selon le facteur fourni.','g, kg ou t de CO₂ ou CO₂e'],
+    ['q','lettre q minuscule','Quantité d’activité. Par exemple distance, volume ou énergie.','km, L ou kWh'],
+    ['FE','facteur d’émission','Masse émise par unité d’activité, dans le périmètre donné.','g/km, kg/L, kg CO₂e/kWh…'],
+    ['Σ','sigma','Somme des postes du même indicateur, sans double comptage.','Même unité pour chaque poste']
+  ),
+  method:['Identifie la quantité et l’unité au dénominateur du facteur.','Multiplie. L’unité commune s’annule.','Convertis la masse si besoin et annonce le périmètre, par exemple l’usage seul.'],
+  memo:'Quantité × « par unité » donne le total.',
+  trap:'CO₂e agrège des gaz en équivalent CO₂. Reprends le libellé du facteur donné. Un facteur de combustion seul ne décrit pas tout le cycle de vie.',
+  ex:['Un trajet de 75 km est étudié à 126 g CO₂/km.','M = 75 × 126 = 9 450 g CO₂.','9 450 g ÷ 1 000 = 9,45 kg CO₂ pour le trajet.'],
+  exercise:task('F-FE','Un volume de carburant','Le dossier impose 2,42 kg CO₂/L pour la combustion. Pour 34 L utilisés, calcule les émissions en kg et en grammes dans ce périmètre.',
+    [n('kg','Émissions','kg CO₂',82.28),n('g','Même masse','g CO₂',82280)],
+    ['Les litres s’annulent dans L × kg/L.','Un kg contient 1 000 g.'],
+    '34 × 2,42 = 82,28 kg CO₂. Cela représente 82 280 g CO₂. Le calcul porte sur la combustion.')
+},
+{
+  id:'part',group:'impact',seq:[1,2],title:'Part, variation et réduction',cue:'Tu cherches un pourcentage et dois choisir la bonne référence.',
+  eq:['Part en % = 100 × partie / total','Variation en % = 100 × (après − avant) / avant','Réduction en % = 100 × (avant − après) / avant'],
+  defs:symbols(
+    ['Partie','partie','Poste étudié dans un total de même nature et de même périmètre.','Même unité que le total'],
+    ['Avant','valeur avant','Valeur de référence pour un changement, supposée non nulle.','Même unité qu’après'],
+    ['%','pour cent','Fraction exprimée sur une base de 100.','Sans dimension']
+  ),
+  method:['Demande-toi si tu regardes une photo à un instant donné ou un changement avant/après.','Pour la part, divise le poste par le total. Pour le changement, divise l’écart par l’avant.','Annonce le signe pour une variation. Si l’on demande le gain d’une baisse, donne la réduction positive.'],
+  memo:'Photo : poste sur total. Film : changement sur départ.',
+  trap:'Un pourcentage portant sur un poste ne se reporte pas au total. Une variation relative à une valeur de départ nulle est indéfinie.',
+  ex:['L’usage représente 25 kg CO₂e sur un total initial de 125 kg. Le nouveau total vaut 110 kg.','Part initiale de l’usage : 25/125 × 100 = 20 %.','Variation globale : (110 − 125)/125 × 100 = −12 %. Réduction globale : 12 %.'],
+  exercise:task('F-PART','Deux pourcentages à distinguer','Un bilan initial vaut 160 kg CO₂e, dont 48 kg pour l’usage. Le nouveau total vaut 136 kg. Calcule la part initiale de l’usage, la variation signée du total et la réduction positive.',
+    [n('part','Part initiale','%',30),n('var','Variation signée','%',-15),n('baisse','Réduction','%',15)],
+    ['Pour la part et la variation de ce cas, le dénominateur vaut 160.','Après moins avant est négatif ici.'],
+    'Part : 48/160 × 100 = 30 %. Variation : (136 − 160)/160 × 100 = −15 %. Réduction : 15 %.')
+},
+{
+  id:'seuil',group:'impact',seq:[1],title:'Seuil de compensation d’un impact initial',cue:'Une solution démarre avec un impact supplémentaire, puis émet moins à chaque unité d’usage.',
+  eq:['I(q) = I₀ + a × q','q<sub>seuil</sub> = (I₀B − I₀A) / (a<sub>A</sub> − a<sub>B</sub>)','t<sub>seuil</sub> = q<sub>seuil</sub> / q<sub>par an</sub>'],
+  defs:symbols(
+    ['I(q)','I en fonction de q','Impact cumulé jusqu’à la quantité d’usage q.','kg CO₂e dans cet exemple'],
+    ['I₀','I zéro','Impact de départ dans le périmètre choisi.','kg CO₂e'],
+    ['a','lettre a','Impact supplémentaire par unité d’usage. On peut aussi écrire y = ax + b, où b est l’impact initial.','kg CO₂e/km'],
+    ['q','lettre q','Quantité d’usage. Au seuil, les bilans sont égaux.','km'],
+    ['tseuil','t au seuil','Durée pour atteindre ce kilométrage au rythme supposé constant.','ans']
+  ),
+  method:['Écris les deux bilans pour la même quantité future et le même service.','Égalise les bilans. Dans le cas d’un surcoût initial de B et d’un gain par km, divise le surcoût par le gain unitaire.','Interprète avant, au et après le seuil. Si le gain unitaire est nul ou négatif, ce surcoût ne se compense pas dans le modèle.'],
+  memo:'Combien de kilomètres pour rembourser l’impact initial ? Dette divisée par l’économie de chaque kilomètre.',
+  trap:'Mets les deux facteurs dans la même unité. Le seuil carbone du modèle ne conclut pas sur les autres impacts.',
+  ex:['A démarre à 0 kg CO₂e, B à 1 800 kg. Les usages valent 0,13 et 0,07 kg CO₂e/km.','Gain de B : 0,13 − 0,07 = 0,06 kg CO₂e/km. Seuil : 1 800 ÷ 0,06 = 30 000 km.','À 12 000 km/an, le seuil est atteint en 2,5 ans. Avant le seuil, A a le bilan inférieur.'],
+  exercise:task('F-SEUIL','Quand l’achat compense-t-il la fabrication ?','Dans le bilan futur, A n’ajoute rien au départ et émet 0,16 kg CO₂e/km. B démarre à 2 700 kg et émet 0,10 kg/km. Calcule le seuil en km et en années à 15 000 km/an, puis choisis le meilleur bilan carbone à 60 000 km.',
+    [n('km','Seuil','km',45000),n('ans','Durée','ans',3),c('choix','Bilan le plus faible à 60 000 km',['A','B','Égalité'],1)],
+    ['Écris A(q) et B(q), puis calcule l’écart par kilomètre.','Compare 60 000 km au seuil que tu as trouvé.'],
+    'Gain : 0,06 kg/km. Seuil : 2 700 ÷ 0,06 = 45 000 km, soit 3 ans. À 60 000 km, B a compensé son impact initial.')
+},
+{
+  id:'stock',group:'production',seq:[1,2],title:'Stock, renouvellement et prélèvement',cue:'Une ressource se reconstitue à un rythme différent de son exploitation.',
+  eq:['Stock<sub>final</sub> = Stock<sub>initial</sub> + (r − p) × Δt','t<sub>épuisement</sub> = Stock<sub>initial</sub> / (p − r) si p &gt; r'],
+  defs:symbols(
+    ['r','lettre r','Rythme de reconstitution supposé constant dans l’exercice.','t/an ou autre quantité par durée'],
+    ['p','lettre p','Rythme de prélèvement dans le même périmètre.','Même unité que r'],
+    ['Δt','delta t','Durée de l’étude.','an si les flux sont annuels'],
+    ['Stock','quantité en réserve','Quantité restante à l’instant considéré.','t, m³…']
+  ),
+  method:['Relève le stock initial, les entrées et les sorties sur une même durée.','Calcule entrées moins sorties pour obtenir la variation du stock.','Si l’on demande une date théorique d’épuisement, divise le stock par la diminution par unité de temps, sous hypothèse de rythmes constants.'],
+  memo:'Comme un compte : entrées positives, sorties négatives.',
+  trap:'Une ressource renouvelable peut diminuer si on prélève plus vite qu’elle ne se reconstitue.',
+  ex:['Une réserve de bois de 120 t croît de 11 t/an et on prélève 14 t/an.','Variation annuelle : 11 − 14 = −3 t/an.','Après 5 ans, le modèle donne 120 − 15 = 105 t.'],
+  exercise:task('F-STOCK','Une réserve suivie sur plusieurs années','Le stock initial vaut 64 t. Il se reconstitue à 7 t/an et on en prélève 11 t/an. Calcule le stock après 6 ans et la durée théorique d’épuisement depuis le départ.',
+    [n('reste','Stock après 6 ans','t',40),n('fin','Temps depuis le départ','ans',16)],
+    ['La réserve diminue de 11 − 7 t chaque année.','La seconde question utilise le stock initial, pas le stock après 6 ans.'],
+    'Le stock baisse de 4 t/an. Après 6 ans : 64 − 24 = 40 t. Durée théorique depuis le départ : 64 ÷ 4 = 16 ans.')
+},
+{
+  id:'massevolume',group:'production',seq:[2],title:'Masse, volume et masse volumique',cue:'Il faut passer des litres de combustible aux kilogrammes.',
+  eq:['ρ = m / V','m = ρ × V','V = m / ρ','1 m³ = 1 000 L'],
+  defs:symbols(
+    ['ρ','rhô','Masse volumique, masse par unité de volume. Ici celle du liquide.','kg/L ou kg/m³'],
+    ['m','lettre m','Masse.','kg'],
+    ['V','lettre V','Volume. Ici V est une grandeur, distincte du symbole V du volt.','L ou m³']
+  ),
+  method:['Vérifie l’unité au dénominateur de ρ.','Pour obtenir la masse, multiplie par le volume dans la bonne unité. Pour obtenir le volume, divise par ρ.','Convertis le volume final si nécessaire. Avec ρ en kg/L, la division donne des litres.'],
+  memo:'ρ te dit combien pèse un litre ou un mètre cube.',
+  trap:'Les kg/L et les kg/m³ diffèrent d’un facteur 1 000. Cette relation donne la masse, pas l’énergie.',
+  ex:['Un réservoir contient 12 L d’un liquide de masse volumique 0,78 kg/L.','m = 0,78 × 12 = 9,36 kg.','Si le PCI est donné en MJ/kg, c’est cette masse qu’il faut utiliser.'],
+  exercise:task('F-RHO','Des kilogrammes aux litres','Un liquide de masse 14,4 kg a une masse volumique de 0,80 kg/L. Calcule son volume en litres et en m³.',
+    [n('l','Volume','L',18),n('m3','Même volume','m³',0.018)],
+    ['Isole V.','Passe des litres aux mètres cubes en divisant par 1 000.'],
+    'V = 14,4 ÷ 0,80 = 18 L = 0,018 m³.')
+},
+{
+  id:'vent',group:'production',seq:[2],title:'Surface balayée et puissance du vent',cue:'Tu veux estimer la puissance cinétique disponible puis une limite de récupération.',
+  eq:['S = πr² = πD² / 4','P<sub>vent</sub> = ½ ρ S v³','P<sub>Betz</sub> = (16/27) × P<sub>vent</sub>'],
+  defs:symbols(
+    ['π','pi','Constante géométrique, environ 3,1416.','Sans unité'],
+    ['r, D','r rayon, D diamètre','Rayon balayé par les pales et diamètre du disque. D = 2r.','m'],
+    ['S','lettre S','Surface du disque balayé.','m²'],
+    ['ρ','rhô','Masse volumique de l’air. Prends la valeur donnée.','kg/m³'],
+    ['v','lettre v minuscule','Vitesse du vent. Le cube vaut v × v × v.','m/s'],
+    ['P','lettre P','Puissance disponible dans le vent ou limite théorique de récupération, selon l’indice.','W']
+  ),
+  method:['Convertis la vitesse en m/s. À partir de km/h, divise par 3,6. Si tu as le diamètre, divise-le par deux pour avoir le rayon.','Calcule la surface balayée, puis la puissance du vent.','Si la limite idéale est demandée, multiplie par 16/27. Une puissance électrique réelle dépend des conditions de la machine.'],
+  memo:'Le rayon agit au carré. La vitesse agit au cube.',
+  trap:'Doubler la vitesse multiplie le potentiel par huit dans le modèle. La puissance nominale ou produite ne suit pas automatiquement ce facteur.',
+  ex:['Pour un disque de 30 m², un air à 1,2 kg/m³ et un vent à 8 m/s, calcule le potentiel.','P vent = 0,5 × 1,2 × 30 × 8³ = 9 216 W.','La limite de Betz vaut environ 5 461 W, avant les pertes de conversion.'],
+  exercise:task('F-VENT','Une petite éolienne','Le rayon balayé vaut 4 m. Le vent souffle à 9 m/s, avec ρ = 1,2 kg/m³. Calcule la surface au centième, puis les puissances disponible et limite de Betz en kW au dixième.',
+    [n('s','Surface','m²',16*Math.PI,0.0051),n('p','Puissance du vent','kW',0.5*1.2*16*Math.PI*9**3/1000,0.0501),n('b','Limite de Betz','kW',0.5*1.2*16*Math.PI*9**3/1000*16/27,0.0501)],
+    ['Calcule d’abord π × 4², puis 9³.','La formule donne des watts. Divise par 1 000 pour les kW.'],
+    'S ≈ 50,27 m². P vent ≈ 21,99 kW, soit 22,0 kW au dixième. Limite ≈ 13,03 kW, soit 13,0 kW au dixième.')
+},
+{
+  id:'charge',group:'production',seq:[2],title:'Puissance moyenne et facteur de charge',cue:'Tu connais la production réelle d’une installation sur une période.',
+  eq:['P<sub>moy</sub> = E<sub>prod</sub> / Δt','FC = E<sub>prod</sub> / (P<sub>nom</sub> × Δt) = P<sub>moy</sub> / P<sub>nom</sub>'],
+  defs:symbols(
+    ['FC','facteur de charge','Part de la production que donnerait une marche à puissance nominale sur toute la période.','Sans unité'],
+    ['Eprod','E produite','Énergie réelle mesurée sur la période.','MWh ou kWh'],
+    ['Pmoy, Pnom','P moyenne, P nominale','Puissance moyenne réelle et puissance de référence de l’installation.','MW ou kW'],
+    ['Δt','delta t','Durée totale de la période de mesure.','h']
+  ),
+  method:['Associe MWh et h pour obtenir des MW, ou kWh et h pour des kW.','Calcule la puissance moyenne réelle, puis divise-la par la puissance nominale.','Exprime éventuellement le facteur en pourcentage. Pour un parc, multiplie l’énergie par machine par le nombre de machines, si elles sont supposées identiques.'],
+  memo:'La référence est une machine à puissance nominale pendant toute la période.',
+  trap:'Le facteur de charge compare deux productions sur la même période. Un rendement compare l’utile à ce qui est reçu par une conversion.',
+  ex:['Une machine nominale de 1,5 MW produit 3 900 MWh en 8 000 h.','P moyenne = 3 900 ÷ 8 000 = 0,4875 MW.','FC = 0,4875 ÷ 1,5 = 0,325, soit 32,5 %.'],
+  exercise:task('F-CHARGE','De l’énergie produite au facteur de charge','Une installation de 2,2 MW produit 4 950 MWh en 7 500 h. Calcule sa puissance moyenne et son facteur de charge en pourcentage.',
+    [n('mw','Puissance moyenne','MW',0.66),n('fc','Facteur de charge','%',30)],
+    ['Divise des MWh par des h.','Compare ensuite la puissance moyenne à la nominale.'],
+    'P moyenne = 4 950/7 500 = 0,66 MW. FC = 0,66/2,2 = 0,30, soit 30 %.')
+},
+{
+  id:'parc',group:'production',seq:[2],title:'Dimensionner un nombre de machines',cue:'Tu veux couvrir une production cible avec un parc d’installations identiques.',
+  eq:['E<sub>machine</sub> = P<sub>nom</sub> × Δt × FC','N<sub>théorique</sub> = E<sub>cible</sub> / E<sub>machine</sub>','Densité = N / S<sub>zone</sub>'],
+  defs:symbols(
+    ['E','lettre E','Énergie par machine ou énergie cible sur la même période.','MWh ou kWh'],
+    ['Pnom','P nominale','Puissance nominale d’une machine.','MW ou kW'],
+    ['Δt','delta t','Durée de la période.','h'],
+    ['FC','facteur de charge','Fraction réelle par rapport à un fonctionnement permanent au nominal.','Sans unité'],
+    ['N','lettre N majuscule','Nombre d’installations. On arrondit au supérieur pour atteindre la cible.','Nombre sans unité'],
+    ['Szone','S de la zone','Surface sur laquelle on rapporte le nombre de machines.','km² si la densité est par km²']
+  ),
+  method:['Calcule l’énergie produite par une machine sur la période.','Divise la cible par cette production. Arrondis à l’entier supérieur si nécessaire.','Pour une densité, divise le nombre retenu par la surface. Le modèle ne dimensionne pas la répartition des machines.'],
+  memo:'Objectif du parc divisé par ce qu’une seule machine produit.',
+  trap:'Une puissance en MW et une énergie en MWh ne se divisent pas directement pour obtenir un nombre de machines.',
+  ex:['Cible de 5 000 MWh en 8 000 h. Chaque machine de 1,25 MW a un facteur de charge de 20 %.','Une machine produit 1,25 × 8 000 × 0,20 = 2 000 MWh.','N théorique = 2,5. Il faut 3 machines dans ce modèle.'],
+  exercise:task('F-PARC','Atteindre une cible de production','La cible est de 16 900 MWh. Sur la même période de 8 000 h, une machine de 2 MW fonctionne avec un facteur de charge de 25 %. Calcule la production par machine et le nombre entier minimal.',
+    [n('mwh','Production par machine','MWh',4000),n('n','Nombre minimal','machines',5)],
+    ['25 % s’écrit 0,25.','Quatre machines produiraient 16 000 MWh.'],
+    'E machine = 2 × 8 000 × 0,25 = 4 000 MWh. 16 900 ÷ 4 000 = 4,225. Il faut 5 machines.')
+},
+{
+  id:'captage',group:'production',seq:[2],title:'Rayonnement solaire, surface et rendement',cue:'Tu passes d’une puissance solaire par m² à la puissance d’une installation.',
+  eq:['P<sub>reçue</sub> = G × S','P<sub>utile</sub> = η × G × S','S = P<sub>utile</sub> / (η × G)'],
+  defs:symbols(
+    ['G','lettre G','Éclairement énergétique reçu par m², sur la surface considérée.','W/m²'],
+    ['S','lettre S','Surface de captage.','m²'],
+    ['P','lettre P','Puissance reçue ou utile.','W'],
+    ['η','êta','Rendement retenu dans le modèle.','Sans unité']
+  ),
+  method:['Relève la puissance par m² et la surface, ou isole S si elle est cherchée.','Convertis le rendement en nombre décimal.','Vérifie que la puissance utile est inférieure à la puissance incidente dans ce modèle de conversion.'],
+  memo:'Des W par m² multipliés par des m² donnent des W reçus.',
+  trap:'Le rayonnement par surface est une puissance par m². Pour une énergie, il faut aussi une durée ou une donnée énergétique intégrée.',
+  ex:['Sur 40 m², le rayonnement reçu vaut 320 W/m². Le rendement fictif est de 18 %.','P reçue = 320 × 40 = 12 800 W.','P utile = 12 800 × 0,18 = 2 304 W.'],
+  exercise:task('F-CAPT','Une surface à déterminer','On vise 4 800 W utiles avec un rayonnement reçu de 400 W/m² et un rendement de 20 %. Calcule la surface puis la puissance incidente.',
+    [n('s','Surface','m²',60),n('p','Puissance incidente','W',24000)],
+    ['Chaque m² donne 400 × 0,20 W utiles dans ce modèle.','Pour la puissance incidente, retire l’étape de rendement.'],
+    'S = 4 800 ÷ (0,20 × 400) = 60 m². P incidente = 400 × 60 = 24 000 W.')
+},
+{
+  id:'solaire',group:'production',seq:[2],title:'Solaire thermique, couverture et appoint',cue:'Le solaire couvre une partie du besoin de chaleur. Tu cherches ce qu’il reste à acheter.',
+  eq:['E<sub>appoint utile</sub> = E<sub>besoin</sub> − E<sub>solaire utile</sub>','E<sub>achetée</sub> = E<sub>appoint utile</sub> / η<sub>appoint</sub>','Couverture solaire en % = 100 × E<sub>solaire utile</sub> / E<sub>besoin</sub>'],
+  defs:symbols(
+    ['Ebesoin','E besoin','Chaleur utile nécessaire sur la période.','kWh thermiques'],
+    ['Esolaire','E solaire utile','Apport solaire effectivement utilisé pour ce besoin.','kWh thermiques'],
+    ['Eappoint','E appoint utile','Chaleur restante à fournir.','kWh thermiques'],
+    ['ηappoint','êta appoint','Rendement de l’appoint sous forme décimale.','Sans unité'],
+    ['Eachetée','E achetée','Énergie à fournir à l’appoint.','kWh']
+  ),
+  method:['Soustrais l’apport solaire utile au besoin utile. Le solaire utile compté est au plus égal au besoin couvert.','Divise le reste par le rendement de l’appoint pour obtenir l’énergie achetée.','Compare l’apport solaire utile au besoin pour obtenir la couverture.'],
+  memo:'Enlève d’abord ce que le soleil fournit déjà. Applique ensuite les pertes de l’appoint.',
+  trap:'Un panneau photovoltaïque produit de l’électricité. Un capteur solaire thermique fournit de la chaleur. L’énergie achetée dépasse l’appoint utile quand son rendement est inférieur à 1.',
+  ex:['Besoin : 3 200 kWh utiles. Apport solaire utile : 1 280 kWh. Rendement de l’appoint : 80 %.','Appoint utile : 3 200 − 1 280 = 1 920 kWh.','Achat : 1 920/0,80 = 2 400 kWh. Couverture : 1 280/3 200 = 40 %.'],
+  exercise:task('F-SOL','Le chauffe-eau de l’atelier','Le besoin annuel vaut 2 800 kWh utiles. Le solaire fournit 1 120 kWh utiles. L’appoint a un rendement de 84 %. Calcule l’appoint utile, l’énergie achetée et la couverture solaire.',
+    [n('restant','Appoint utile','kWh',1680),n('achat','Énergie achetée','kWh',2000),n('part','Couverture solaire','%',40)],
+    ['Soustrais deux énergies utiles avant de tenir compte du rendement.','La couverture solaire se calcule avec le besoin initial au dénominateur.'],
+    'Appoint utile = 2 800 − 1 120 = 1 680 kWh. Achat = 1 680 ÷ 0,84 = 2 000 kWh. Couverture = 40 %.')
+},
+{
+  id:'carburant',group:'trajet',seq:[1,2],title:'Carburant utilisé et énergie finale',cue:'Une consommation est donnée pour 100 km.',
+  eq:['V = C<sub>100</sub> × d / 100','E<sub>finale</sub> = V × e<sub>L</sub>','d<sub>possible</sub> = 100 × V<sub>disponible</sub> / C<sub>100</sub>'],
+  defs:symbols(
+    ['V','lettre V','Volume de carburant.','L'],
+    ['C100','C cent','Valeur de consommation exprimée en litres pour 100 km.','L/100 km'],
+    ['d','lettre d','Distance dont la valeur est exprimée en kilomètres.','km'],
+    ['eL','e par litre','Énergie du carburant par litre imposée.','kWh/L'],
+    ['Efinale','E finale','Énergie contenue dans le volume de carburant consommé.','kWh']
+  ),
+  method:['Divise la distance en km par 100 pour savoir quelle fraction de 100 km est parcourue.','Multiplie cette fraction par la consommation pour 100 km.','Multiplie les litres obtenus par les kWh/L. Pour une autonomie en km, isole la distance avec le volume disponible.'],
+  memo:'Divise la distance par 100 avant de compter les litres.',
+  trap:'6 L/100 km ne signifie pas 6 L/km. L’énergie du carburant est une énergie finale de ce modèle, distincte de l’énergie utile aux roues.',
+  ex:['Un trajet de 32 km se fait à 6,2 L/100 km. L’énergie par litre vaut 9,2 kWh/L.','V = 6,2 × 32 ÷ 100 = 1,984 L.','E finale = 1,984 × 9,2 = 18,2528 kWh, soit 18,25 kWh au centième.'],
+  exercise:task('F-CARB','Le trajet d’une navette','Un trajet de 54 km se fait à 5,5 L/100 km. Le carburant fournit 9,6 kWh/L. Calcule le volume et l’énergie finale au centième.',
+    [n('v','Volume','L',2.97),n('e','Énergie finale','kWh',28.512,0.0051)],
+    ['54 km représentent 0,54 fois 100 km.','Calcule d’abord les litres et utilise-les pour les kWh.'],
+    'V = 5,5 × 0,54 = 2,97 L. E = 2,97 × 9,6 = 28,512 kWh, soit 28,51 kWh.')
+},
+{
+  id:'trajet',group:'trajet',seq:[2],title:'Durée et énergie d’un trajet électrique',cue:'Tu connais la distance, la vitesse moyenne et la puissance absorbée sur le trajet.',
+  eq:['t = d / v<sub>moy</sub>','E<sub>finale</sub> = P<sub>moy</sub> × t','d = v<sub>moy</sub> × t'],
+  defs:symbols(
+    ['t','lettre t','Durée de trajet.','h si d en km et v en km/h'],
+    ['d','lettre d','Distance parcourue.','km'],
+    ['vmoy','v moyenne','Vitesse moyenne sur le trajet.','km/h'],
+    ['Pmoy','P moyenne','Puissance moyenne absorbée pendant le trajet.','kW'],
+    ['Efinale','E finale','Énergie absorbée pendant ce trajet.','kWh']
+  ),
+  method:['Divise la distance par la vitesse moyenne exprimée en km/h.','Multiplie la durée en h par la puissance moyenne en kW.','Garde ce résultat comme énergie finale si le problème demande ensuite l’énergie primaire.'],
+  memo:'Distance → durée → énergie. La puissance s’applique à une durée.',
+  trap:'La puissance maximale du moteur n’est pas la puissance moyenne absorbée sur le trajet.',
+  ex:['La navette fait 28 km à 56 km/h avec une puissance moyenne de 7,4 kW.','t = 28/56 = 0,5 h, soit 30 min.','E finale = 7,4 × 0,5 = 3,7 kWh.'],
+  exercise:task('F-TRAJET','Une livraison électrique','La navette roule 33 km à 44 km/h en moyenne, avec une puissance moyenne absorbée de 5,8 kW. Calcule le temps en heures et l’énergie finale.',
+    [n('temps','Durée','h',0.75),n('e','Énergie finale','kWh',4.35)],
+    ['La vitesse donnée est en km par heure.','Multiplie la puissance par la durée en heures.'],
+    't = 33/44 = 0,75 h. E finale = 5,8 × 0,75 = 4,35 kWh.')
+},
+{
+  id:'specifique',group:'trajet',seq:[2],title:'Énergie par km et énergie massique',cue:'Tu compares des quantités d’énergie ramenées à une unité d’usage ou de masse.',
+  eq:['e<sub>km</sub> = E / d','e<sub>massique</sub> = E / m','m = E / e<sub>massique</sub>'],
+  defs:symbols(
+    ['e','lettre e minuscule','Quantité d’énergie rapportée à un kilomètre ou à un kilogramme.','Wh/km ou Wh/kg'],
+    ['E','lettre E majuscule','Énergie totale du trajet ou du stock selon le calcul.','Wh si e est en Wh par unité'],
+    ['d','lettre d','Distance du trajet.','km'],
+    ['m','lettre m','Masse du stock ou du pack.','kg']
+  ),
+  method:['Repère ce que signifie « par » dans l’énoncé.','Divise l’énergie par la distance ou la masse qui correspond. Pour retrouver la masse, divise E par l’énergie par kg.','Compare les mêmes usages et les mêmes unités.'],
+  memo:'« Par km » et « par kg » placent le kilomètre ou le kilogramme au dénominateur.',
+  trap:'Wh/kg mesure une énergie massique, distincte d’une masse volumique en kg/m³.',
+  ex:['Un trajet de 30 km consomme 5,4 kWh.','5,4 kWh = 5 400 Wh.','e km = 5 400 ÷ 30 = 180 Wh/km.'],
+  exercise:task('F-SPEC','La consommation et le pack','Un trajet de 45 km consomme 7,2 kWh. Un autre calcul utilise un pack de 4 800 Wh et une énergie massique de 160 Wh/kg. Calcule la consommation spécifique du trajet et la masse du pack.',
+    [n('e','Consommation spécifique','Wh/km',160),n('m','Masse du pack','kg',30)],
+    ['Pour la première grandeur, exprime le total en Wh.','Pour la masse, divise les Wh du pack par les Wh/kg.'],
+    '7 200 ÷ 45 = 160 Wh/km. m = 4 800 ÷ 160 = 30 kg.')
+},
+{
+  id:'primaire',group:'trajet',seq:[2],title:'Énergie finale et énergie primaire',cue:'Tu veux inclure l’amont du carburant ou de l’électricité selon le modèle du sujet.',
+  eq:['E<sub>primaire</sub> = k<sub>EP</sub> × E<sub>finale</sub>','k<sub>EP à égalité</sub> = E<sub>primaire cible</sub> / E<sub>finale</sub>'],
+  defs:symbols(
+    ['Eprimaire','E primaire','Énergie amont mobilisée selon les hypothèses du sujet.','kWh EP'],
+    ['Efinale','E finale','Énergie livrée à l’utilisateur, avant la conversion qui rend le service.','kWh finaux'],
+    ['kEP','k indice énergie primaire','Coefficient imposé par le sujet pour passer du final au primaire.','kWh EP par kWh final']
+  ),
+  method:['Construis chaque énergie finale sur le même trajet ou pour un service équivalent.','Applique à chaque filière son propre coefficient fourni.','Compare les énergies primaires et limite la conclusion au scénario. Pour un seuil d’égalité, isole le coefficient.'],
+  memo:'Finale au point d’usage. Primaire en remontant vers les ressources.',
+  trap:'Les coefficients des exercices sont des hypothèses. Une comparaison en kWh EP ne donne pas à elle seule les émissions ni l’ACV.',
+  ex:['A consomme 14,5 kWh finaux, k = 1,12. B consomme 6,6 kWh finaux, k = 2,00.','A : 14,5 × 1,12 = 16,24 kWh EP. B : 6,6 × 2,00 = 13,20 kWh EP.','Dans ce scénario, B mobilise 3,04 kWh EP de moins.'],
+  exercise:task('F-EP','Comparer deux bilans amont','A utilise 17 kWh finaux avec k = 1,15. B utilise 7,5 kWh finaux avec k = 2,35. Calcule les deux énergies primaires, puis justifie en une phrase ce que tu peux conclure.',
+    [n('a','A','kWh EP',19.55,0.0051),n('b','B','kWh EP',17.625,0.0051),w('why','Ma conclusion et son périmètre')],
+    ['Applique le bon coefficient à chaque filière.','Une conclusion précise dit dans quel modèle et sur quel critère elle vaut.'],
+    'A : 19,55 kWh EP. B : 17,625 kWh EP, soit 17,63 au centième. B mobilise moins d’énergie primaire avec ces coefficients. Les émissions restent à étudier séparément.')
+}
+];
+
+const themes = [
+  {
+    "id": "s1-durable",
+    "seq": 1,
+    "title": "Penser durable",
+    "intro": "Un projet doit articuler environnement, économie et conditions de vie des personnes.",
+    "key": [
+      "Environnement : ressources, biodiversité, pollutions et impacts.",
+      "Économie : viabilité, coût dans la durée, activité et financement.",
+      "Social : santé, sécurité, équité, accès au service et conditions de travail.",
+      "Un même choix peut toucher plusieurs piliers. Il faut expliquer le compromis au lieu de se fier à un slogan."
+    ],
+    "example": "Réparer un équipement peut économiser des matières et de l’argent tout en mobilisant un travail local. Sa sécurité et son utilité restent à vérifier.",
+    "trap": "« Moins cher » ou « recyclable » ne signifie pas à lui seul « durable ».",
+    "related": [
+      "part"
+    ],
+    "exercises": [
+      {
+        "id": "T1-DU3",
+        "title": "Décider avec des critères",
+        "prompt": "Deux offres assurent le même service pendant 5 ans. A : 100 €, réparable, conditions de fabrication inconnues. B : 85 €, non réparable, conditions de fabrication documentées. Écris un avantage de chaque offre et une information encore nécessaire pour décider.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Mon raisonnement : avantage de A, avantage de B, information manquante",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Repère les données, puis l’unité ou le critère demandé.",
+          "Reprends la règle du mémo correspondant avant de refaire ton raisonnement."
+        ],
+        "solution": "Piste : A favorise la réparation. B coûte moins cher et fournit une information sociale. Il manque notamment des données sur la durée réelle, les impacts de fabrication, les réparations possibles et la qualité des conditions annoncées. Plusieurs choix sont défendables s’ils sont argumentés."
+      },
+      {
+        "id": "T1-DU4",
+        "title": "Faire évoluer un projet",
+        "prompt": "Le lycée veut remplacer toutes ses tables encore utilisables. Propose une action qui répond au besoin tout en limitant des impacts. Explique aussi une conséquence économique ou sociale.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Mon action et ses conséquences",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Repère les données, puis l’unité ou le critère demandé.",
+          "Reprends la règle du mémo correspondant avant de refaire ton raisonnement."
+        ],
+        "solution": "Piste : réparer ou remettre en état les tables répondant encore au besoin, puis ne remplacer que celles qui ne conviennent plus. Cela peut limiter la consommation de matières et les dépenses, et mobiliser une activité locale de réparation. Vérifier la sécurité et le service rendu."
+      }
+    ]
+  },
+  {
+    "id": "s1-ressources",
+    "seq": 1,
+    "title": "D’où vient l’énergie ?",
+    "intro": "Une ressource fournit de l’énergie. Une chaîne permet d’obtenir le service recherché.",
+    "key": [
+      "Renouvelable : se reconstitue à une échelle compatible avec son exploitation.",
+      "Fossiles : charbon, pétrole, gaz naturel. Fissile : uranium. Ces ressources sont non renouvelables à l’échelle humaine.",
+      "Primaire : avant conversion. Secondaire : issue d’une conversion. Finale : livrée au consommateur. Utile : service énergétique recherché.",
+      "L’énergie est conservée. Des conversions et transferts la rendent en partie moins disponible pour le service voulu."
+    ],
+    "example": "Charbon → centrale → électricité livrée → lumière utile. À plusieurs étapes, une partie de l’énergie est dissipée sous forme thermique.",
+    "trap": "L’électricité n’est pas une ressource fossile ou renouvelable en elle-même : il faut préciser son origine.",
+    "related": [
+      "stock",
+      "rendement"
+    ],
+    "exercises": [
+      {
+        "id": "T1-RE2",
+        "title": "Suivre l’énergie",
+        "prompt": "On brûle du charbon pour produire de l’électricité, on l’achemine puis on éclaire une salle. Associe chaque description au niveau de la chaîne énergétique.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Énergie contenue dans le charbon avant conversion",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Primaire"
+              },
+              {
+                "value": "1",
+                "label": "Secondaire"
+              },
+              {
+                "value": "2",
+                "label": "Finale"
+              },
+              {
+                "value": "3",
+                "label": "Utile"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "Électricité à la sortie de la centrale",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Primaire"
+              },
+              {
+                "value": "1",
+                "label": "Secondaire"
+              },
+              {
+                "value": "2",
+                "label": "Finale"
+              },
+              {
+                "value": "3",
+                "label": "Utile"
+              }
+            ],
+            "answer": "1"
+          },
+          {
+            "key": "c",
+            "label": "Électricité livrée dans le bâtiment",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Primaire"
+              },
+              {
+                "value": "1",
+                "label": "Secondaire"
+              },
+              {
+                "value": "2",
+                "label": "Finale"
+              },
+              {
+                "value": "3",
+                "label": "Utile"
+              }
+            ],
+            "answer": "2"
+          },
+          {
+            "key": "d",
+            "label": "Éclairage utile de la salle",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Primaire"
+              },
+              {
+                "value": "1",
+                "label": "Secondaire"
+              },
+              {
+                "value": "2",
+                "label": "Finale"
+              },
+              {
+                "value": "3",
+                "label": "Utile"
+              }
+            ],
+            "answer": "3"
+          }
+        ],
+        "hints": [
+          "Repère la production, la livraison, puis le service rendu.",
+          "La finale est livrée au consommateur. L’utile correspond à l’effet recherché."
+        ],
+        "solution": "Primaire : ressource avant conversion. Secondaire : issue d’une conversion. Finale : livrée au consommateur. Utile : associée au service recherché."
+      },
+      {
+        "id": "T1-RE3",
+        "title": "Renouvelable sous condition",
+        "prompt": "Une forêt produit 8 tonnes de bois par an. On en prélève 12 tonnes chaque année. Calcule la diminution annuelle du stock, puis explique pourquoi « le bois est renouvelable » ne suffit pas à justifier cette exploitation.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Diminution annuelle du stock",
+            "type": "number",
+            "unit": "t/an",
+            "answer": 4,
+            "tolerance": 0.001
+          },
+          {
+            "key": "b",
+            "label": "Mon explication",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Repère les données, puis l’unité ou le critère demandé.",
+          "Reprends la règle du mémo correspondant avant de refaire ton raisonnement."
+        ],
+        "solution": "12 − 8 = 4 tonnes de stock en moins par an, dans ce modèle simplifié. Le prélèvement dépasse la reconstitution : l’exploitation n’est pas soutenable au rythme indiqué."
+      }
+    ]
+  },
+  {
+    "id": "s1-energie",
+    "seq": 1,
+    "title": "L’énergie se calcule",
+    "intro": "Commence par nommer la grandeur et les unités. La formule vient ensuite.",
+    "key": [
+      "E = P × t pour une puissance constante. W × s → J. W × h → Wh. KW × h → kWh.",
+      "1 Wh = 3 600 J. 1 kWh = 3,6 MJ. 1 MJ = 1 000 kJ. 1 tep ≈ 41,9 GJ ≈ 11,6 MWh.",
+      "Combustion : E = m × PCI si le PCI est en énergie par masse. Pour un besoin utile, un rendement peut aussi devoir être pris en compte.",
+      "PCS : inclut la chaleur de condensation de l’eau formée. PCI : ne l’inclut pas. Pour un combustible produisant de l’eau, PCS > PCI."
+    ],
+    "example": "0,8 kW pendant 2 h : E = 1,6 kWh = 5,76 MJ. Pour libérer 90 MJ avec un PCI de 18 MJ/kg : m = 5 kg.",
+    "trap": "kW ≠ kWh. Avec des kW, une durée en minutes doit d’abord être convertie en heures si l’on veut des kWh.",
+    "related": [
+      "ept",
+      "unites",
+      "combustion"
+    ],
+    "exercises": [
+      {
+        "id": "T1-EN5",
+        "title": "PCI ou PCS ?",
+        "prompt": "Pourquoi le PCS est-il supérieur au PCI pour un combustible produisant de l’eau lors de sa combustion ?",
+        "fields": [
+          {
+            "key": "a",
+            "label": "La différence",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Le PCS inclut l’énergie récupérable par condensation de l’eau des fumées"
+              },
+              {
+                "value": "1",
+                "label": "Le PCI inclut davantage d’énergie que le PCS"
+              },
+              {
+                "value": "2",
+                "label": "Le PCS mesure une puissance"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "En une phrase, ce que permet une chaudière à condensation",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Repère les données, puis l’unité ou le critère demandé.",
+          "Reprends la règle du mémo correspondant avant de refaire ton raisonnement."
+        ],
+        "solution": "Le PCS inclut la chaleur récupérable lorsque l’eau issue de la combustion se condense. Le PCI ne l’inclut pas. Une chaudière à condensation peut récupérer une partie de cette chaleur, sous les bonnes conditions de fonctionnement."
+      },
+      {
+        "id": "T1-EN7",
+        "title": "Repérer une erreur",
+        "prompt": "Un élève écrit : « 2 kW pendant 30 min donnent 60 kWh ». Corrige son calcul et explique son erreur.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Énergie correcte",
+            "type": "number",
+            "unit": "kWh",
+            "answer": 1,
+            "tolerance": 0.001
+          },
+          {
+            "key": "b",
+            "label": "L’erreur commise",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Repère les données, puis l’unité ou le critère demandé.",
+          "Reprends la règle du mémo correspondant avant de refaire ton raisonnement."
+        ],
+        "solution": "30 min = 0,5 h. E = 2 × 0,5 = 1 kWh. L’élève a utilisé une durée en minutes avec une puissance en kW sans effectuer la conversion en heures."
+      }
+    ]
+  },
+  {
+    "id": "s1-acv",
+    "seq": 1,
+    "title": "La vie d’un produit",
+    "intro": "Comparer deux produits exige un périmètre commun et un service équivalent.",
+    "key": [
+      "Cycle simplifié : ressources → fabrication → distribution → usage → fin de vie. Les transports peuvent intervenir à plusieurs étapes.",
+      "Énergie grise : énergie mobilisée par les étapes hors usage direct, selon un périmètre à préciser. Ici : extraction, fabrication, distribution et fin de vie.",
+      "Unité fonctionnelle (UF) : service quantifié, niveau de performance et durée. Exemple : un éclairage utile équivalent pendant 6 000 h.",
+      "CUF = besoin de service / service rendu par l’unité de référence. C’est un coefficient d’allocation. Le nombre d’objets entiers à acheter peut exiger un arrondi supérieur.",
+      "Typologie simplifiée : actif (usage consommateur), passif (peu de consommation directe à l’usage), jetable (usage bref). Ces catégories demandent parfois des nuances."
+    ],
+    "example": "Pour 6 000 h : lampe de 2 000 h → CUF 3. Lampe de 10 000 h → CUF 0,6. Il faut conserver le même éclairage utile.",
+    "trap": "Un produit passif a aussi des impacts de fabrication et de fin de vie. Une énergie grise ne se compare qu’avec un périmètre explicite.",
+    "related": [
+      "cycle",
+      "cuf"
+    ],
+    "exercises": [
+      {
+        "id": "T1-AC1",
+        "title": "Reconstituer le cycle",
+        "prompt": "Attribue à chaque étape sa position dans un cycle de vie simplifié, de 1 à 5.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Distribution et transport",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "1"
+              },
+              {
+                "value": "1",
+                "label": "2"
+              },
+              {
+                "value": "2",
+                "label": "3"
+              },
+              {
+                "value": "3",
+                "label": "4"
+              },
+              {
+                "value": "4",
+                "label": "5"
+              }
+            ],
+            "answer": "2"
+          },
+          {
+            "key": "b",
+            "label": "Extraction des matières premières",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "1"
+              },
+              {
+                "value": "1",
+                "label": "2"
+              },
+              {
+                "value": "2",
+                "label": "3"
+              },
+              {
+                "value": "3",
+                "label": "4"
+              },
+              {
+                "value": "4",
+                "label": "5"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "c",
+            "label": "Utilisation",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "1"
+              },
+              {
+                "value": "1",
+                "label": "2"
+              },
+              {
+                "value": "2",
+                "label": "3"
+              },
+              {
+                "value": "3",
+                "label": "4"
+              },
+              {
+                "value": "4",
+                "label": "5"
+              }
+            ],
+            "answer": "3"
+          },
+          {
+            "key": "d",
+            "label": "Fabrication",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "1"
+              },
+              {
+                "value": "1",
+                "label": "2"
+              },
+              {
+                "value": "2",
+                "label": "3"
+              },
+              {
+                "value": "3",
+                "label": "4"
+              },
+              {
+                "value": "4",
+                "label": "5"
+              }
+            ],
+            "answer": "1"
+          },
+          {
+            "key": "e",
+            "label": "Fin de vie",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "1"
+              },
+              {
+                "value": "1",
+                "label": "2"
+              },
+              {
+                "value": "2",
+                "label": "3"
+              },
+              {
+                "value": "3",
+                "label": "4"
+              },
+              {
+                "value": "4",
+                "label": "5"
+              }
+            ],
+            "answer": "4"
+          }
+        ],
+        "hints": [
+          "Commence par les ressources et termine par les scénarios de fin de vie.",
+          "Le produit doit être fabriqué avant sa distribution puis son utilisation."
+        ],
+        "solution": "1 Extraction → 2 Fabrication → 3 Distribution → 4 Utilisation → 5 Fin de vie. Les transports peuvent en réalité intervenir entre plusieurs étapes."
+      },
+      {
+        "id": "T1-AC5",
+        "title": "Actif, passif, jetable",
+        "prompt": "Dans la typologie simplifiée du cours, associe chaque produit à sa caractéristique dominante.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Radiateur électrique",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Actif"
+              },
+              {
+                "value": "1",
+                "label": "Passif"
+              },
+              {
+                "value": "2",
+                "label": "Jetable"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "Fenêtre, sans motorisation",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Actif"
+              },
+              {
+                "value": "1",
+                "label": "Passif"
+              },
+              {
+                "value": "2",
+                "label": "Jetable"
+              }
+            ],
+            "answer": "1"
+          },
+          {
+            "key": "c",
+            "label": "Gobelet prévu pour un usage unique",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Actif"
+              },
+              {
+                "value": "1",
+                "label": "Passif"
+              },
+              {
+                "value": "2",
+                "label": "Jetable"
+              }
+            ],
+            "answer": "2"
+          }
+        ],
+        "hints": [
+          "Repère les données, puis l’unité ou le critère demandé.",
+          "Reprends la règle du mémo correspondant avant de refaire ton raisonnement."
+        ],
+        "solution": "Le radiateur consomme de l’énergie à l’usage : actif. La fenêtre n’en consomme pas directement : passif dans cette typologie. Le gobelet a un usage bref : jetable. « Passif » ne veut pas dire sans impact sur le cycle de vie. Ces catégories ne couvrent pas tous les cas de façon exclusive."
+      }
+    ]
+  },
+  {
+    "id": "s1-carbone",
+    "seq": 1,
+    "title": "Compter les impacts",
+    "intro": "Un résultat n’a de sens qu’avec son unité, sa référence et ses hypothèses.",
+    "key": [
+      "Émissions = quantité × facteur d’émission. Exemple : g/km × km → g. Puis 1 000 g = 1 kg.",
+      "Part (%) = partie / total × 100. Variation signée (%) = (après − avant) / avant × 100.",
+      "Une réduction exprimée positivement vaut (avant − après) / avant × 100. Énonce le sens de ton résultat.",
+      "Comparer le futur d’un produit conservé et d’un produit neuf peut demander un modèle : bilan = impact initial supplémentaire + facteur d’usage × quantité.",
+      "Seuil = impact initial supplémentaire / économie d’impact par unité d’usage, si cette économie est positive. Les autres postes doivent être explicités."
+    ],
+    "example": "A(d)=0,15d. B(d)=4 500+0,10d (kg CO₂e, d en km). Égalité à 90 000 km. Le modèle décrit seulement le périmètre indiqué.",
+    "trap": "Une baisse de 20 % sur la fabrication ne signifie pas une baisse de 20 % du total. Les kg CO₂e caractérisent le climat, pas tous les impacts.",
+    "related": [
+      "emissions",
+      "part",
+      "seuil"
+    ],
+    "exercises": [
+      {
+        "id": "T1-CA3",
+        "title": "Part ou variation ?",
+        "prompt": "Avant modification : fabrication 100 kg CO₂e, transport 20, usage 80. Après modification : fabrication 80, transport 20, usage 80. Le service étudié reste identique.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Part initiale de la fabrication dans le total",
+            "type": "number",
+            "unit": "%",
+            "answer": 50,
+            "tolerance": 0.01
+          },
+          {
+            "key": "b",
+            "label": "Réduction du total, exprimée positivement",
+            "type": "number",
+            "unit": "%",
+            "answer": 10,
+            "tolerance": 0.01
+          },
+          {
+            "key": "c",
+            "label": "Réduction de la seule fabrication",
+            "type": "number",
+            "unit": "%",
+            "answer": 20,
+            "tolerance": 0.01
+          }
+        ],
+        "hints": [
+          "Le dénominateur change selon ce que l’on étudie : total ou fabrication.",
+          "Le gain global de 20 est à comparer au total initial de 200."
+        ],
+        "solution": "Total initial = 200. Total final = 180. Part initiale de fabrication = 100 / 200 × 100 = 50 %. Réduction globale = (200 − 180) / 200 × 100 = 10 %. Réduction de fabrication = (100 − 80) / 100 × 100 = 20 %."
+      },
+      {
+        "id": "T1-CA6",
+        "title": "Une autre distance",
+        "prompt": "Reprends A(d) = 0,15d et B(d) = 4 500 + 0,10d. Compare-les à 60 000 km.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Bilan de A",
+            "type": "number",
+            "unit": "kg CO₂e",
+            "answer": 9000,
+            "tolerance": 1
+          },
+          {
+            "key": "b",
+            "label": "Bilan de B",
+            "type": "number",
+            "unit": "kg CO₂e",
+            "answer": 10500,
+            "tolerance": 1
+          },
+          {
+            "key": "c",
+            "label": "Le bilan le plus faible à cette distance",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "A"
+              },
+              {
+                "value": "1",
+                "label": "B"
+              },
+              {
+                "value": "2",
+                "label": "Égalité"
+              }
+            ],
+            "answer": "0"
+          }
+        ],
+        "hints": [
+          "Repère les données, puis l’unité ou le critère demandé.",
+          "Reprends la règle du mémo correspondant avant de refaire ton raisonnement."
+        ],
+        "solution": "A = 0,15 × 60 000 = 9 000 kg. B = 4 500 + 0,10 × 60 000 = 10 500 kg. A reste plus faible avant le seuil de 90 000 km."
+      }
+    ]
+  },
+  {
+    "id": "s1-ecoconception",
+    "seq": 1,
+    "title": "Mieux concevoir",
+    "intro": "L’éco-conception intègre la réduction des impacts dans la conception, pour un service défini.",
+    "key": [
+      "Multi-étapes : regarder l’ensemble du cycle de vie dans le périmètre retenu.",
+      "Multicritère : climat, ressources, eau, acidification, eutrophisation et autres indicateurs pertinents.",
+      "L’effet de serre naturel contribue à maintenir la Terre habitable. Son renforcement par les émissions humaines contribue au réchauffement climatique.",
+      "Un transfert d’impacts apparaît lorsqu’un gain sur une étape ou un critère s’accompagne d’une hausse ailleurs.",
+      "Comparer à service équivalent, chiffrer les gains et les pertes, expliciter les limites et justifier la décision."
+    ],
+    "example": "Réduire la fabrication de 4 kg CO₂e mais augmenter l’usage de 6 kg fait augmenter le bilan total de 2 kg. Le gain local n’est pas le gain global.",
+    "trap": "On n’additionne pas des indicateurs de natures ou d’unités différentes pour fabriquer un « total » sans méthode justifiée.",
+    "related": [
+      "cycle",
+      "part",
+      "cuf"
+    ],
+    "exercises": [
+      {
+        "id": "T1-EC2",
+        "title": "Un progrès sur tous les critères ?",
+        "prompt": "Pour un même service, A présente 10 kg CO₂e et un indicateur d’impact sur l’eau de 20 unités. B présente 8 kg CO₂e et 30 unités pour l’eau. Calcule les deux variations signées de A vers B.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Variation du carbone",
+            "type": "number",
+            "unit": "%",
+            "answer": -20,
+            "tolerance": 0.01
+          },
+          {
+            "key": "b",
+            "label": "Variation de l’indicateur sur l’eau",
+            "type": "number",
+            "unit": "%",
+            "answer": 50,
+            "tolerance": 0.01
+          },
+          {
+            "key": "c",
+            "label": "La conclusion correcte",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "B améliore tous les critères"
+              },
+              {
+                "value": "1",
+                "label": "B réduit le carbone mais augmente l’impact indiqué sur l’eau"
+              },
+              {
+                "value": "2",
+                "label": "A et B sont identiques"
+              }
+            ],
+            "answer": "1"
+          }
+        ],
+        "hints": [
+          "Une variation signée vaut (après − avant) / avant × 100.",
+          "Une diminution donne une variation négative. Une augmentation, positive."
+        ],
+        "solution": "Carbone : (8 − 10) / 10 × 100 = −20 %. Eau : (30 − 20) / 20 × 100 = +50 %. On observe un transfert entre impacts. Les deux indicateurs ne s’additionnent pas : leurs unités et significations diffèrent."
+      },
+      {
+        "id": "T1-EC4",
+        "title": "Décider sans slogan",
+        "prompt": "Un produit demande plus de matière à la fabrication mais dure plus longtemps et se répare. Quelles données faut-il réunir avant de conclure ? Donne au moins trois éléments et explique le rôle du service rendu.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Les données nécessaires et mon raisonnement",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Repère les données, puis l’unité ou le critère demandé.",
+          "Reprends la règle du mémo correspondant avant de refaire ton raisonnement."
+        ],
+        "solution": "Piste : même service et même durée d’étude. Impacts de fabrication. Durée de vie réelle. Énergie et consommables à l’usage. Fréquence et impacts des réparations. Fin de vie. Plusieurs indicateurs environnementaux. Il faut comparer les produits pour une unité fonctionnelle commune."
+      }
+    ]
+  },
+  {
+    "id": "s2-besoin",
+    "seq": 2,
+    "title": "Besoins et exigences",
+    "intro": "Commence par le service attendu, la frontière choisie et les contraintes à vérifier.",
+    "key": [
+      "Un acteur représente un rôle extérieur au système. Il peut être humain ou être un autre système.",
+      "Un cas d’utilisation exprime un service attendu. La frontière sépare le système de ses acteurs.",
+      "include : cas principal → cas inclus, comportement utilisé dans ce cas. Extend : extension → cas de base, sous conditions.",
+      "Une exigence doit être concise, identifiée et vérifiable. satisfy relie une solution à une exigence. Verify relie un cas de test à une exigence."
+    ],
+    "example": "Une consigne à colis doit permettre un retrait autorisé. « confirmer le verrouillage en moins de 2 s » est une exigence mesurable.",
+    "trap": "Décrire un composant ou une solution technique ne remplace pas la formulation du service.",
+    "related": [],
+    "exercises": [
+      {
+        "id": "T2-B3",
+        "title": "Obligatoire ou optionnel ?",
+        "prompt": "Dans le scénario défini, tout retrait inclut une vérification d’autorisation. Une impression de reçu est proposée en option.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Retirer → vérifier l’autorisation",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "include"
+              },
+              {
+                "value": "1",
+                "label": "extend"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "Imprimer un reçu → retrait",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "include"
+              },
+              {
+                "value": "1",
+                "label": "extend"
+              }
+            ],
+            "answer": "1"
+          },
+          {
+            "key": "c",
+            "label": "Sens de la flèche include",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Du cas principal vers le cas inclus"
+              },
+              {
+                "value": "1",
+                "label": "Du cas inclus vers le cas principal"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "d",
+            "label": "Sens de la flèche extend",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "De l’extension vers le cas de base"
+              },
+              {
+                "value": "1",
+                "label": "Du cas de base vers l’extension"
+              }
+            ],
+            "answer": "0"
+          }
+        ],
+        "hints": [
+          "Repère ce qui fait toujours partie du retrait et ce qui dépend d’une condition.",
+          "include : principal → inclus. Extend : extension → cas de base."
+        ],
+        "solution": "L’inclusion va du cas qui utilise au cas inclus. L’extension va du comportement optionnel vers le cas de base. Ces choix dépendent du scénario explicitement retenu."
+      },
+      {
+        "id": "T2-B4",
+        "title": "Une exigence testable",
+        "prompt": "Choisis une formulation vérifiable, puis propose un essai pour la vérifier.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "L’exigence",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "La porte doit être belle et rapide"
+              },
+              {
+                "value": "1",
+                "label": "Le verrouillage doit être confirmé en moins de 2 s après la commande"
+              },
+              {
+                "value": "2",
+                "label": "Le système doit être parfait"
+              }
+            ],
+            "answer": "1"
+          },
+          {
+            "key": "b",
+            "label": "Mon essai : commande, mesure et critère",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "L’exigence chiffrée est vérifiable : lancer la commande, mesurer le délai jusqu’à la confirmation et comparer à 2 s. Un bloc peut satisfaire une exigence et un cas de test la vérifier."
+      }
+    ]
+  },
+  {
+    "id": "s2-modeles",
+    "seq": 2,
+    "title": "Comportement et structure",
+    "intro": "Le même système peut être décrit par ses interactions, ses états ou sa structure.",
+    "key": [
+      "Séquence : interactions ordonnées entre lignes de vie. Le temps se lit vers le bas. L’échelle n’est généralement pas quantitative.",
+      "Appel synchrone : l’émetteur attend la fin. Asynchrone : l’émetteur n’attend pas la fin du traitement pour poursuivre. Retour : message en pointillés. Il peut rester implicite dans une représentation simplifiée.",
+      "Message réflexif : un participant s’adresse à lui-même. Un fragment alt présente des alternatives avec des gardes.",
+      "États : situations, événements déclencheurs, gardes et transitions. Une action est une opération, pas automatiquement un état.",
+      "bdd : types, composition, structure. ibd : parties d’un bloc, connexions et échanges de matière, énergie ou information."
+    ],
+    "example": "Un contrôleur lit une position par un appel avec attente. Un capteur peut aussi notifier un obstacle sans bloquer son propre fonctionnement.",
+    "trap": "La nature humaine de l’acteur et la vitesse apparente de la réponse ne déterminent pas à elles seules si un message est synchrone.",
+    "related": [],
+    "exercises": [
+      {
+        "id": "T2-M1",
+        "title": "Lire les messages",
+        "prompt": "Dans le diagramme du contrôleur et du capteur, repère l’appel, le retour et la notification. Le texte du scénario définit l’attente.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "lirePosition(), avec attente de fin",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Appel synchrone"
+              },
+              {
+                "value": "1",
+                "label": "Notification asynchrone"
+              },
+              {
+                "value": "2",
+                "label": "Retour"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "position, flèche de retour en pointillés",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Appel synchrone"
+              },
+              {
+                "value": "1",
+                "label": "Notification asynchrone"
+              },
+              {
+                "value": "2",
+                "label": "Retour"
+              }
+            ],
+            "answer": "2"
+          },
+          {
+            "key": "c",
+            "label": "signalerObstacle(), sans attente de l’émetteur",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Appel synchrone"
+              },
+              {
+                "value": "1",
+                "label": "Notification asynchrone"
+              },
+              {
+                "value": "2",
+                "label": "Retour"
+              }
+            ],
+            "answer": "1"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "Synchrone : l’émetteur attend la fin de l’appel. Retour : réponse représentée en pointillés. Asynchrone : l’émetteur n’est pas bloqué en attendant la fin du traitement. Un retour peut être omis graphiquement s’il est implicite."
+      },
+      {
+        "id": "T2-M3",
+        "title": "État, événement, action",
+        "prompt": "Pour une badgeuse, on retient Repos → Vérification sur l’événement « badge présenté ».",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Repos",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "État"
+              },
+              {
+                "value": "1",
+                "label": "Événement"
+              },
+              {
+                "value": "2",
+                "label": "Action"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "badge présenté",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "État"
+              },
+              {
+                "value": "1",
+                "label": "Événement"
+              },
+              {
+                "value": "2",
+                "label": "Action"
+              }
+            ],
+            "answer": "1"
+          },
+          {
+            "key": "c",
+            "label": "Comparer l’identifiant à une liste",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "État"
+              },
+              {
+                "value": "1",
+                "label": "Événement"
+              },
+              {
+                "value": "2",
+                "label": "Action"
+              }
+            ],
+            "answer": "2"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "Un état décrit une situation du système. L’événement peut déclencher la transition. Une action est une opération effectuée. Une garde est une condition logique à satisfaire."
+      }
+    ]
+  },
+  {
+    "id": "s2-chaines",
+    "seq": 2,
+    "title": "Chaînes et sources",
+    "intro": "Repère le rôle des flux et des constituants avant de classer le système.",
+    "key": [
+      "Information : acquérir → traiter → communiquer. Exemples : capteur → contrôleur → afficheur ou ordre vers la chaîne de puissance.",
+      "Puissance : alimenter → distribuer → convertir → transmettre → agir. Chaque fonction peut être assurée par un ou plusieurs constituants.",
+      "Un moteur convertit une forme d’énergie. Une transmission mécanique adapte le mouvement sans changer sa nature mécanique.",
+      "Une source fournit un apport. Un stockage conserve une énergie reçue. La récupération transforme une partie d’une énergie qui aurait autrement été dissipée.",
+      "Dans la typologie du cours : monosource, multisource, hybride. Les hybrides peuvent coordonner différents apports, un stockage et de la récupération. Ces catégories se lisent avec la frontière et le scénario retenus.",
+      "La pompe à chaleur reçoit de l’électricité et de la chaleur extérieure : son COP ne se confond pas avec un rendement global."
+    ],
+    "example": "Portail : capteur → carte de commande → ordre au variateur. Réseau → variateur → moteur → réducteur → vantail.",
+    "trap": "Plusieurs batteries ou plusieurs moteurs ne suffisent pas à compter les sources d’énergie externes. Un fil peut porter une information ou une puissance selon son rôle.",
+    "related": [
+      "cop",
+      "rendement"
+    ],
+    "exercises": [
+      {
+        "id": "T2-C1",
+        "title": "La chaîne d’information",
+        "prompt": "Associe les constituants d’un arrosage automatisé à leurs fonctions principales.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Capteur d’humidité",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Acquérir"
+              },
+              {
+                "value": "1",
+                "label": "Traiter"
+              },
+              {
+                "value": "2",
+                "label": "Communiquer"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "Microcontrôleur",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Acquérir"
+              },
+              {
+                "value": "1",
+                "label": "Traiter"
+              },
+              {
+                "value": "2",
+                "label": "Communiquer"
+              }
+            ],
+            "answer": "1"
+          },
+          {
+            "key": "c",
+            "label": "Afficheur de l’état",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Acquérir"
+              },
+              {
+                "value": "1",
+                "label": "Traiter"
+              },
+              {
+                "value": "2",
+                "label": "Communiquer"
+              }
+            ],
+            "answer": "2"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "Le capteur acquiert. Le microcontrôleur traite. L’afficheur communique une information à l’utilisateur."
+      },
+      {
+        "id": "T2-C4",
+        "title": "Apports, stock et récupération",
+        "prompt": "Dans un véhicule hybride du scénario, du carburant alimente un moteur, une batterie alimente un moteur électrique et le freinage peut recharger la batterie.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Rôle principal de la batterie",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Stocker de l’énergie"
+              },
+              {
+                "value": "1",
+                "label": "Créer gratuitement de l’énergie"
+              },
+              {
+                "value": "2",
+                "label": "Remplacer toute commande"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "Freinage récupératif",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Conversion d’une partie de l’énergie mécanique en énergie stockée"
+              },
+              {
+                "value": "1",
+                "label": "Création d’énergie"
+              },
+              {
+                "value": "2",
+                "label": "Suppression de toutes les dissipations"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "c",
+            "label": "Pourquoi la batterie n’est-elle pas une source inépuisable ?",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "La batterie stocke une énergie reçue. La récupération transforme une partie de l’énergie mécanique. Elle ne recrée pas toute l’énergie utilisée. Le bilan dépend de la frontière et de la gestion des différents apports."
+      }
+    ]
+  },
+  {
+    "id": "s2-energie",
+    "seq": 2,
+    "title": "Énergie et rendement",
+    "intro": "Nomme l’énergie reçue et l’énergie utile. Rends les unités compatibles avant de calculer.",
+    "key": [
+      "Puissance constante : E = P × t. Puissance moyenne : P moyenne = E/Δt.",
+      "W × s → J. W × h → Wh. KW × h → kWh. 1 Wh = 3 600 J. 1 kWh = 3 600 000 J = 3,6 MJ.",
+      "1 min = 60 s. 1 h = 60 min. Dans ce support, 1 tep ≈ 11,63 MWh. Utilise la convention imposée dans l’exercice.",
+      "η = E utile/E absorbée. Pour les mêmes durées, η = P utile/P absorbée. Le rendement est sans unité, souvent donné en %.",
+      "Sur un bilan sans autre apport ni déstockage : E absorbée = E utile + autres transferts. Les rendements de conversions successives se multiplient."
+    ],
+    "example": "240 kJ reçus, 180 kJ utiles : η = 75 % et 60 kJ hors service utile.",
+    "trap": "Une énergie dissipée ne disparaît pas. Elle ne contribue pas au service utile défini. Un rendement de conversion ne se confond pas avec un COP.",
+    "related": [
+      "ept",
+      "unites",
+      "rendement",
+      "serie"
+    ],
+    "exercises": [
+      {
+        "id": "T2-E4",
+        "title": "Deux conversions successives",
+        "prompt": "Un ensemble comporte un convertisseur de rendement 80 % puis une transmission de rendement 90 %. Il reçoit 1 000 J.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Énergie après le premier élément",
+            "type": "number",
+            "unit": "J",
+            "answer": 800,
+            "tolerance": 0.01
+          },
+          {
+            "key": "b",
+            "label": "Énergie utile en sortie",
+            "type": "number",
+            "unit": "J",
+            "answer": 720,
+            "tolerance": 0.01
+          },
+          {
+            "key": "c",
+            "label": "Rendement global",
+            "type": "number",
+            "unit": "%",
+            "answer": 72,
+            "tolerance": 0.01
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "Après le premier élément : 1 000 × 0,8 = 800 J. Puis 800 × 0,9 = 720 J. Rendement global = 0,8 × 0,9 = 0,72. On ne somme pas les rendements."
+      },
+      {
+        "id": "T2-E5",
+        "title": "Une incohérence à détecter",
+        "prompt": "Un appareil est annoncé avec 400 J utiles pour 320 J reçus, sans autre apport ni déstockage. Calcule le rapport et explique le problème.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Rapport annoncé",
+            "type": "number",
+            "unit": "%",
+            "answer": 125,
+            "tolerance": 0.01
+          },
+          {
+            "key": "b",
+            "label": "Pourquoi faut-il revoir le bilan ou les données ?",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "400/320 × 100 = 125 %. Pour le périmètre annoncé sans apport supplémentaire ni déstockage, ce rendement est incohérent. Il manque un apport ou une des valeurs est erronée."
+      }
+    ]
+  },
+  {
+    "id": "s2-thermique",
+    "seq": 2,
+    "title": "Chaleur et parois",
+    "intro": "Deux problèmes différents : chauffer une masse et limiter un transfert à travers une paroi.",
+    "key": [
+      "Échauffement sans changement d’état : E utile = m × c × ΔT. Masse en kg, c en J/(kg·K), ΔT en K ou en écart de °C. Pour l’eau des exercices : c = 4 180 J/(kg·K), 1 L ≈ 1 kg.",
+      "Couche homogène : R = e/λ, avec e en m et λ en W/(m·K). R est ici une résistance thermique surfacique en m²·K/W.",
+      "Modèle permanent sans résistances superficielles : Φ = SΔT/R. Donc R = SΔT/Φ. Φ est une puissance thermique en W. La résistance globale de la paroi serait R/S en K/W.",
+      "Inertie : aptitude à stocker et restituer de la chaleur, influençant les variations de température dans le temps. Elle ne se confond pas avec l’isolation.",
+      "Repères historiques : HPE = haute performance énergétique. RT 2012 : repère conventionnel moyen en kWh EP/(m²·an), avec modulations et usages conventionnels.",
+      "Culture complémentaire : BBC = bâtiment basse consommation. Depuis 2022, la RE 2020 s’est déployée progressivement avec des objectifs énergie, carbone du cycle de vie et confort d’été."
+    ],
+    "example": "Avec e = 0,10 m et λ = 0,05 W/(m·K), R = 2 m²·K/W. Doubler e double R. La surface intervient dans la puissance traversante.",
+    "trap": "Le repère conventionnel de la RT 2012 n’est ni une puissance, ni une consommation réelle universelle, ni le seuil unique de la réglementation actuelle.",
+    "related": [
+      "chauffe",
+      "couche",
+      "paroi"
+    ],
+    "exercises": [
+      {
+        "id": "T2-T3",
+        "title": "Une mesure sur une paroi",
+        "prompt": "Modèle simplifié : une couche homogène de 3 m² sépare deux faces à 24 K d’écart. La puissance thermique traversante vaut 60 W. Résistances superficielles négligées.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Résistance thermique surfacique R",
+            "type": "number",
+            "unit": "m²·K/W",
+            "answer": 1.2,
+            "tolerance": 0.001
+          },
+          {
+            "key": "b",
+            "label": "Si e = 18 cm, conductivité λ",
+            "type": "number",
+            "unit": "W/(m·K)",
+            "answer": 0.15,
+            "tolerance": 0.001
+          }
+        ],
+        "hints": [
+          "Φ est ici une puissance thermique en W, pas une énergie.",
+          "Convertis d’abord l’épaisseur en mètres. R = e/λ donc λ = e/R."
+        ],
+        "solution": "R = S × ΔT / Φ = 3 × 24 / 60 = 1,2 m²·K/W. e = 0,18 m. Λ = e/R = 0,15 W/(m·K)."
+      },
+      {
+        "id": "T2-T4",
+        "title": "Ne pas confondre les trois notions",
+        "prompt": "Associe la définition à la notion.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Propriété du matériau à conduire la chaleur",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Conductivité λ"
+              },
+              {
+                "value": "1",
+                "label": "Résistance R"
+              },
+              {
+                "value": "2",
+                "label": "Inertie thermique"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "Opposition de la couche au transfert, dépendant notamment de e et λ",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Conductivité λ"
+              },
+              {
+                "value": "1",
+                "label": "Résistance R"
+              },
+              {
+                "value": "2",
+                "label": "Inertie thermique"
+              }
+            ],
+            "answer": "1"
+          },
+          {
+            "key": "c",
+            "label": "Aptitude à stocker et restituer de la chaleur, ralentissant l’évolution de température",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Conductivité λ"
+              },
+              {
+                "value": "1",
+                "label": "Résistance R"
+              },
+              {
+                "value": "2",
+                "label": "Inertie thermique"
+              }
+            ],
+            "answer": "2"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "Conductivité : propriété du matériau, en W/(m·K). Résistance surfacique : propriété d’une couche d’épaisseur donnée, en m²·K/W. Inertie : réponse liée au stockage et à la restitution de chaleur. Une forte inertie n’implique pas une forte isolation."
+      }
+    ]
+  },
+  {
+    "id": "s2-eclairage",
+    "seq": 2,
+    "title": "Éclairage et autonomie",
+    "intro": "Optimiser une consommation demande de compter les usages et de conserver un service comparable.",
+    "key": [
+      "Pour chaque usage : E = nombre d’appareils × puissance × durée. Additionne des énergies dans la même unité.",
+      "Économie relative = (énergie avant − énergie après)/énergie avant × 100. Précise si le pourcentage porte sur un poste ou sur le total.",
+      "Compare un éclairage utile équivalent : une baisse de puissance ne suffit pas si le service rendu diminue aussi.",
+      "Autonomie théorique à puissance constante : t = E utilisable/P.",
+      "Avec une tension moyenne supposée constante, E nominale (Wh) ≈ U (V) × capacité (Ah). Les limites d’utilisation et pertes doivent être annoncées."
+    ],
+    "example": "Batterie de 24 V et 20 Ah : environ 480 Wh nominaux. Avec 80 % utilisables : 384 Wh, soit 6 h à 64 W.",
+    "trap": "Un Ah mesure une capacité de charge électrique. Connaître la tension est nécessaire pour estimer une énergie en Wh.",
+    "related": [
+      "budget",
+      "batterie",
+      "autonomie",
+      "cout"
+    ],
+    "exercises": [
+      {
+        "id": "T2-L2",
+        "title": "Améliorer le bon poste",
+        "prompt": "Pour un même éclairage utile, 8 lampes de 15 W sont remplacées par 8 lampes de 5 W, utilisées 4 h/jour.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Ancien éclairage",
+            "type": "number",
+            "unit": "Wh/j",
+            "answer": 480,
+            "tolerance": 0.01
+          },
+          {
+            "key": "b",
+            "label": "Nouvel éclairage",
+            "type": "number",
+            "unit": "Wh/j",
+            "answer": 160,
+            "tolerance": 0.01
+          },
+          {
+            "key": "c",
+            "label": "Réduction de l’énergie d’éclairage",
+            "type": "number",
+            "unit": "%",
+            "answer": 66.66666666666667,
+            "tolerance": 0.1
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "Avant : 8 × 15 × 4 = 480 Wh. Après : 8 × 5 × 4 = 160 Wh. Réduction = (480 − 160)/480 × 100 ≈ 66,7 %. On compare le même service lumineux."
+      },
+      {
+        "id": "T2-L5",
+        "title": "Un pourcentage trompeur",
+        "prompt": "Dans un bilan total initial de 800 Wh/j, l’éclairage passe de 240 à 120 Wh/j. Tous les autres usages sont inchangés.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Nouveau bilan total",
+            "type": "number",
+            "unit": "Wh/j",
+            "answer": 680,
+            "tolerance": 0.01
+          },
+          {
+            "key": "b",
+            "label": "Économie sur le bilan total",
+            "type": "number",
+            "unit": "%",
+            "answer": 15,
+            "tolerance": 0.01
+          },
+          {
+            "key": "c",
+            "label": "Pourquoi le total ne baisse-t-il pas de 50 % ?",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "Le total diminue de 120 Wh : 800 − 120 = 680 Wh. La baisse globale vaut 120/800 × 100 = 15 %. Les 50 % concernent uniquement le poste éclairage."
+      }
+    ]
+  },
+  {
+    "id": "s2-renouvelables",
+    "seq": 2,
+    "title": "Vent et soleil",
+    "intro": "Ne confonds pas potentiel de la ressource, puissance nominale et énergie réellement produite.",
+    "key": [
+      "Vent : P disponible = ½ρSv³. S = πr². ρ en kg/m³, S en m², v en m/s. Résultat en W.",
+      "La limite de Betz est 16/27 de la puissance cinétique disponible dans le vent. La puissance électrique réelle est encore limitée par les conditions de fonctionnement et les pertes.",
+      "P moyenne = énergie produite/durée. Facteur de charge = énergie réelle/(P nominale × durée), sur une même période. Ce n’est pas un rendement de conversion.",
+      "Photovoltaïque : rayonnement → électricité. Solaire thermique : rayonnement → chaleur dans un fluide.",
+      "Appoint utile = besoin utile − apport solaire utile. L’énergie achetée d’un appoint vaut son besoin utile divisé par son rendement."
+    ],
+    "example": "Besoin annuel utile de 2 400 kWh, solaire utile 900 : appoint utile 1 500. Avec η appoint = 0,90, achat ≈ 1 667 kWh.",
+    "trap": "Doubler la vitesse multiplie le potentiel cinétique par huit dans le modèle. Cela ne garantit pas huit fois plus d’électricité produite par une machine réelle.",
+    "related": [
+      "vent",
+      "charge",
+      "parc",
+      "captage",
+      "solaire"
+    ],
+    "exercises": [
+      {
+        "id": "T2-R1",
+        "title": "Ce que change la vitesse",
+        "prompt": "On utilise P vent = ½ρSv³ avec ρ et S constants. Puis on change le rayon des pales à vitesse constante.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Facteur de puissance si v est doublée",
+            "type": "number",
+            "unit": "",
+            "answer": 8,
+            "tolerance": 0.001
+          },
+          {
+            "key": "b",
+            "label": "Facteur de puissance si le rayon est doublé",
+            "type": "number",
+            "unit": "",
+            "answer": 4,
+            "tolerance": 0.001
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "La vitesse intervient au cube : 2³ = 8. La surface balayée vaut πr² : doubler r multiplie S et la puissance disponible par 4. Cela ne garantit pas le même facteur sur la production réelle."
+      },
+      {
+        "id": "T2-R5",
+        "title": "Deux formes de récupération",
+        "prompt": "Associe chaque équipement à sa conversion principale.",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Panneau photovoltaïque",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Rayonnement → électricité"
+              },
+              {
+                "value": "1",
+                "label": "Rayonnement → chaleur dans un fluide"
+              },
+              {
+                "value": "2",
+                "label": "Mouvement → électricité"
+              }
+            ],
+            "answer": "0"
+          },
+          {
+            "key": "b",
+            "label": "Capteur solaire thermique",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Rayonnement → électricité"
+              },
+              {
+                "value": "1",
+                "label": "Rayonnement → chaleur dans un fluide"
+              },
+              {
+                "value": "2",
+                "label": "Mouvement → électricité"
+              }
+            ],
+            "answer": "1"
+          },
+          {
+            "key": "c",
+            "label": "Alternateur entraîné par une éolienne",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "Rayonnement → électricité"
+              },
+              {
+                "value": "1",
+                "label": "Rayonnement → chaleur dans un fluide"
+              },
+              {
+                "value": "2",
+                "label": "Mouvement → électricité"
+              }
+            ],
+            "answer": "2"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "Le photovoltaïque et le solaire thermique répondent à des besoins différents. L’alternateur convertit une puissance mécanique en puissance électrique."
+      }
+    ]
+  },
+  {
+    "id": "s2-primaire",
+    "seq": 2,
+    "title": "Trajets et énergie primaire",
+    "intro": "Construis une chaîne de calcul lisible entre distance, consommation finale et niveau primaire.",
+    "key": [
+      "Carburant : volume = consommation en L/100 km × distance/100. Énergie finale = volume × énergie par litre donnée.",
+      "Électrique : durée = distance/vitesse. Énergie finale = puissance moyenne absorbée × durée.",
+      "Énergie primaire = coefficient primaire imposé × énergie finale. Chaque coefficient représente les hypothèses du modèle amont.",
+      "Les coefficients des cas sont pédagogiques et imposés. Ils ne sont pas des facteurs réglementaires universels.",
+      "Compare un même trajet et un même service, puis limite ta conclusion au critère étudié. L’énergie primaire seule ne fournit pas une ACV complète."
+    ],
+    "example": "Sur 40 km à 40 km/h, une puissance moyenne de 6 kW correspond à 6 kWh finaux. On applique ensuite le coefficient primaire fourni.",
+    "trap": "Ne pas utiliser la puissance maximale nominale à la place de la puissance moyenne absorbée donnée sur le trajet.",
+    "related": [
+      "carburant",
+      "trajet",
+      "specifique",
+      "primaire"
+    ],
+    "exercises": [
+      {
+        "id": "T2-P4",
+        "title": "Conclure avec le bon périmètre",
+        "prompt": "Le modèle précédent suffit-il pour affirmer que la navette ayant le minimum d’énergie primaire est meilleure sur tous les impacts environnementaux ?",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Ma conclusion limitée et deux données manquantes",
+            "type": "text"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "On peut comparer les énergies primaires de ce service avec les coefficients imposés. Pour une conclusion globale, il faut aussi examiner les émissions, la fabrication, les batteries, l’entretien, la durée de vie et d’autres impacts, à service équivalent."
+      },
+      {
+        "id": "T2-P5",
+        "title": "Trouver la limite de comparaison",
+        "prompt": "Une solution A consomme 20 kWh finaux avec un coefficient primaire de 1,2. La solution B consomme 8 kWh finaux. Quel coefficient primaire de B donne égalité ?",
+        "fields": [
+          {
+            "key": "a",
+            "label": "Coefficient limite de B",
+            "type": "number",
+            "unit": "kWh EP/kWh final",
+            "answer": 3,
+            "tolerance": 0.001
+          },
+          {
+            "key": "b",
+            "label": "Si le coefficient de B vaut 2,5, le minimum primaire est",
+            "type": "choice",
+            "options": [
+              {
+                "value": "0",
+                "label": "A"
+              },
+              {
+                "value": "1",
+                "label": "B"
+              },
+              {
+                "value": "2",
+                "label": "Égalité"
+              }
+            ],
+            "answer": "1"
+          }
+        ],
+        "hints": [
+          "Nomme ce qui est demandé, puis repère le modèle ou la relation utile.",
+          "Consulte la fiche de cette notion : vérifie le sens des flèches ou les unités avant de reprendre."
+        ],
+        "solution": "A : 20 × 1,2 = 24 kWh EP. Égalité si 8 × coefficient = 24, donc coefficient = 3. Avec 2,5 : B = 20 kWh EP, inférieur à 24."
+      }
+    ]
+  }
+];
+
+const dsReview = [
+  task('R-UNITES','Unités et vocabulaire','Convertis 0,84 kWh en joules. Puis lis deux fiches : une annonce une conductivité λ, l’autre une consommation conventionnelle annuelle d’énergie primaire rapportée à la surface. Associe les bonnes unités.',
+    [n('j','Énergie','J',3024000),
+     c('lambda','Unité de la conductivité λ',['m²·K/W','W/(m·K)','kWh EP/(m²·an)'],1),
+     c('ep','Unité de l’indicateur annuel par surface',['kWh','W/m²','kWh EP/(m²·an)'],2)],
+    ['1 kWh = 1 000 W × 3 600 s.','Pour l’indicateur annuel, cherche ensemble énergie primaire, surface et année.'],
+    '0,84 × 3 600 000 = 3 024 000 J. La conductivité s’exprime en W/(m·K). L’indicateur annuel par surface s’exprime en kWh EP/(m²·an).'),
+  task('R-PAROI','Une paroi mesurée','Un panneau homogène de 3,5 m² et 18,9 cm d’épaisseur transmet 50 W pour 18 K d’écart entre ses faces. Dans le modèle permanent simplifié, calcule sa résistance surfacique, puis la conductivité du matériau.',
+    [n('r','Résistance surfacique','m²·K/W',1.26),n('lambda','Conductivité','W/(m·K)',0.15),w('why','Une ligne de calcul avec la conversion')],
+    ['Commence par R = S × ΔT / Φ.','18,9 cm = 0,189 m. Isole λ à partir de R = e/λ.'],
+    'R = 3,5 × 18 / 50 = 1,26 m²·K/W. λ = 0,189 ÷ 1,26 = 0,15 W/(m·K).'),
+  task('R-CHAUFFE','Chauffer et calculer un rendement','Un appareil de 900 W chauffe 0,65 kg d’eau de 22 °C à 64 °C en 3 min 30 s. Prends c = 4 180 J/(kg·K). Calcule les deux énergies et le rendement au dixième.',
+    [n('abs','Énergie absorbée','J',189000),n('utile','Énergie utile','J',114114),n('eta','Rendement','%',60.4),w('why','Comment je distingue les deux énergies')],
+    ['La puissance décrit l’énergie absorbée par seconde. Convertis 3 min 30 s en secondes.','Pour l’énergie utile, la masse d’eau est chauffée de 42 K. Au numérateur du rendement, place l’utile.'],
+    'E absorbée = 900 × 210 = 189 000 J. E utile = 0,65 × 4 180 × 42 = 114 114 J. Rendement = 114 114/189 000 ≈ 60,4 %.'),
+  task('R-TRAJET','Comparer un trajet en énergie primaire','Deux navettes font le même trajet de 42 km. A consomme 6,3 L/100 km. Le carburant représente 9,4 kWh/L et kEP = 1,16. B roule à 56 km/h et absorbe en moyenne 6,8 kW. Son kEP vaut 2,15. Calcule les intermédiaires, puis compare les énergies primaires au centième.',
+    [n('l','Volume de A','L',2.646,0.00051),n('final-a','Énergie finale de A','kWh',24.8724,0.0051),n('ep-a','Énergie primaire de A','kWh EP',28.851984,0.0051),n('h','Durée de B','h',0.75),n('final-b','Énergie finale de B','kWh',5.1),n('ep-b','Énergie primaire de B','kWh EP',10.97,0.00501),w('why','Ma conclusion pour ce scénario')],
+    ['A : litres → kWh finaux. B : heures → kWh finaux.','À la fin seulement, multiplie chaque énergie finale par son coefficient. Garde les valeurs non arrondies pour les calculs intermédiaires.'],
+    'A : 2,646 L → 24,8724 kWh finaux → 28,85 kWh EP. B : 0,75 h → 5,10 kWh finaux → 10,97 kWh EP. B mobilise moins d’énergie primaire avec les hypothèses du cas.')
+];
+const dsExam = [
+  task('D-REPERES','Lire les grandeurs','Un laboratoire a mesuré 1,45 kWh pendant un essai. Convertis cette énergie en joules. Puis explique pourquoi une paroi lourde peut amortir les variations de température tout en conduisant bien la chaleur. Distingue inertie, conductivité et résistance surfacique.',
+    [n('j','Énergie','J',5220000),w('why','Mon explication des trois notions')],[],
+    '1,45 × 3 600 000 = 5 220 000 J. Inertie : aptitude à stocker et restituer de la chaleur, donc effet sur la réponse dans le temps. Conductivité λ en W/(m·K) : facilité de conduction dans le matériau. Résistance surfacique R en m²·K/W : opposition au transfert d’une couche, R = e/λ. Une forte inertie ne garantit pas un grand R.'),
+  task('D-PAROI','Le panneau du local technique','Un panneau homogène de 4,2 m², épais de 14 cm, transmet 38,4 W pour un écart de 16 K entre ses faces. On néglige les résistances superficielles. Calcule R puis λ. R = S × ΔT / Φ. R = e / λ.',
+    [n('r','Résistance surfacique','m²·K/W',1.75),n('lambda','Conductivité','W/(m·K)',0.08),w('why','Ma démarche avec les unités')],[],
+    'R = 4,2 × 16 / 38,4 = 1,75 m²·K/W. 14 cm = 0,14 m. λ = 0,14/1,75 = 0,08 W/(m·K).'),
+  task('D-CHAUFFE','L’essai du bain d’eau','Un appareil de 1 000 W fonctionne 4 min. Il chauffe 1,30 kg d’eau de 16 °C à 51 °C. Prends c = 4 186 J/(kg·K). Calcule E absorbée, E utile et le rendement au dixième.',
+    [n('abs','Énergie absorbée','J',240000),n('utile','Énergie utile','J',190463),n('eta','Rendement','%',79.4),w('why','Mes relations et mes conversions')],[],
+    'E absorbée = 1 000 × 240 = 240 000 J. E utile = 1,30 × 4 186 × 35 = 190 463 J. Rendement ≈ 79,4 %.'),
+  task('D-TRAJET','Une liaison de maintenance','Deux véhicules font 30 km. Thermique : 5,9 L/100 km, 9,3 kWh/L et coefficient primaire 1,17. Électrique : 48 km/h, 7,2 kW moyens absorbés et coefficient primaire 2,20. Calcule les deux bilans finaux puis primaires et conclus. Garde les valeurs non arrondies pour la comparaison, puis arrondis les énergies au centième.',
+    [n('l','Volume du thermique','L',1.77),n('final-a','Énergie finale du thermique','kWh',16.461,0.0051),n('ep-a','Énergie primaire du thermique','kWh EP',19.25937,0.0051),n('h','Durée de l’électrique','h',0.625),n('final-b','Énergie finale de l’électrique','kWh',4.5),n('ep-b','Énergie primaire de l’électrique','kWh EP',9.9),w('why','Ma comparaison chiffrée et sa limite')],[],
+    'Thermique : 1,77 L, 16,461 kWh finaux, 19,26 kWh EP. Électrique : 0,625 h, 4,50 kWh finaux, 9,90 kWh EP. L’électrique mobilise environ 9,36 kWh EP de moins dans ce scénario. Les coefficients sont imposés et le résultat ne tranche pas le bilan carbone ou l’ACV.')
+];
+const dsGuides = [
+  {
+    title:'Repères et unités',method:'Nommer la grandeur, donner son unité et distinguer la définition du calcul.',
+    formulas:['unites','couche','paroi'],
+    reminders:[
+      'HPE se lit Haute Performance Énergétique. Dans les archives du cours, il s’agit d’un repère de performance du bâtiment. BBC signifie Bâtiment Basse Consommation.',
+      'Le repère RT 2012 porte sur une consommation conventionnelle d’énergie primaire par surface et par an, pour des usages définis et avec des modulations.',
+      'Conductivité λ : propriété du matériau. Résistance R : opposition d’une couche au transfert. Inertie : stockage et restitution qui influencent les variations dans le temps.'
+    ]
+  },
+  {
+    title:'Paroi et isolation',method:'Obtenir R à partir d’une mesure, puis isoler λ et convertir l’épaisseur.',
+    formulas:['couche','paroi'],
+    reminders:['R surfacique s’exprime en m²·K/W. λ s’exprime en W/(m·K).','Un écart de 1 °C a la même valeur qu’un écart de 1 K. Une épaisseur en cm se divise par 100 pour passer en m.']
+  },
+  {
+    title:'Chauffage et rendement',method:'Écrire deux lignes de calcul séparées avant de former le rapport.',
+    formulas:['ept','chauffe','rendement'],
+    reminders:['E absorbée provient de la puissance et de la durée. E utile provient de l’échauffement de l’eau.','Pour le résultat en J, prends P en W et t en s. Le rendement est utile ÷ absorbée.']
+  },
+  {
+    title:'Trajets et énergie primaire',method:'Ramener les deux véhicules au même trajet, puis remonter à l’énergie primaire.',
+    formulas:['carburant','trajet','primaire'],
+    reminders:['Thermique : distance → volume → énergie finale → énergie primaire.','Électrique : distance → durée → énergie finale → énergie primaire. Compare ensuite les mêmes unités et annonce le périmètre.']
+  }
+];
+
+const themeWidgets = {
+  's1-durable': {
+    heading:'Un choix, trois regards',intro:'Le lycée hésite à réparer ses appareils plutôt que les remplacer. Change de critère.',
+    nodes:[
+      ['Environnement','On peut éviter une fabrication. Il faut aussi comparer la consommation des appareils à l’usage.'],
+      ['Économie','Compare le coût de réparation, d’achat et d’utilisation sur une même durée.'],
+      ['Social','Vérifie la sécurité, l’accès au service et les conditions de travail.']
+    ]
+  },
+  's1-ressources': {
+    heading:'Suis l’énergie jusqu’au service',intro:'Choisis une étape du scénario « éclairer avec de l’électricité produite à partir du gaz ». Les pertes ne font pas disparaître l’énergie.',
+    nodes:[
+      ['Primaire','Le gaz est la ressource énergétique prélevée avant conversion.'],
+      ['Secondaire','La centrale convertit une partie de l’énergie du gaz en électricité.'],
+      ['Finale','L’électricité est livrée au point d’usage.'],
+      ['Utile','La lumière rend le service attendu. Une partie de l’énergie est transférée sous forme de chaleur.']
+    ],arrows:true
+  },
+  's1-acv': {
+    heading:'Ouvre les étapes du cycle',intro:'Pour un luminaire, repère ce qui se passe à chaque étape. Compare ensuite à éclairage utile équivalent.',
+    nodes:[
+      ['Ressources','Extraction et préparation des matières.'],
+      ['Fabrication','Transformation des matières et assemblage du luminaire.'],
+      ['Distribution','Emballage, stockage et transport jusqu’à l’utilisateur. Les transports peuvent aussi intervenir à d’autres étapes.'],
+      ['Usage','Électricité et entretien pendant le service étudié.'],
+      ['Fin de vie','Collecte, traitement, réemploi ou valorisation selon le scénario.']
+    ],arrows:true
+  },
+  's1-ecoconception': {
+    heading:'Un gain ici, un effet ailleurs',intro:'Deux variantes d’un produit rendent le même service. Ouvre chaque indicateur avant de conclure.',
+    nodes:[
+      ['Climat','La variante B réduit le bilan carbone de 12 à 9 kg CO₂e sur le périmètre étudié.'],
+      ['Eau','L’indicateur d’impact sur l’eau monte de 10 à 14 unités pour B.'],
+      ['Décision','B améliore le climat dans ce cas, avec un impact sur l’eau plus élevé. Le choix demande des critères et une justification.']
+    ]
+  },
+  's2-besoin': {
+    heading:'Choisis le scénario de la consigne à colis',intro:'Regarde ce qui se produit à chaque retrait ou seulement dans certaines conditions.',
+    nodes:[
+      ['Retrait ordinaire','« Retirer le colis » → « Vérifier le code » porte « include ». La vérification fait partie du retrait décrit.'],
+      ['Aide si le code est illisible','« Demander de l’aide » → « Retirer le colis » porte « extend » si le modèle prévoit cette extension conditionnelle. Le retrait ordinaire existe seul.'],
+      ['Vérifier une exigence','Une exigence mesurable pourrait imposer de confirmer le verrouillage en moins de 2 s. Le lien « verify » part du cas de test vers l’exigence.']
+    ]
+  },
+  's2-modeles': {
+    heading:'Lis le scénario message par message',intro:'Dans cet exemple, le temps se lit vers le bas. L’attente de l’émetteur est indiquée dans le scénario.',
+    sequence:true,
+    nodes:[
+      ['1 · Appel','Le contrôleur demande une mesure et attend que le capteur termine. L’appel est synchrone.'],
+      ['2 · Retour','Le capteur renvoie la mesure qui répond à l’appel. La flèche de retour est en pointillés.'],
+      ['3 · Notification','Le capteur signale un obstacle et poursuit son fonctionnement. La notification est asynchrone.']
+    ]
+  },
+  's2-chaines': {
+    heading:'Du capteur au mouvement',intro:'Choisis un constituant du portail. Suis ce qu’il transmet à la suite.',
+    nodes:[
+      ['Capteur','Acquérir. Il mesure l’état du portail et envoie une information à la carte.'],
+      ['Carte','Traiter et communiquer. Elle interprète l’information, puis envoie un ordre au variateur.'],
+      ['Variateur','Distribuer. Il ajuste la puissance électrique fournie au moteur.'],
+      ['Moteur','Convertir. Il transforme la puissance électrique en puissance mécanique.'],
+      ['Réducteur','Transmettre. Il adapte le mouvement transmis au vantail.']
+    ],arrows:true
+  },
+  's2-primaire': {
+    heading:'Les deux calculs se rejoignent',intro:'Ouvre chaque branche pour voir comment atteindre la même grandeur de comparaison.',
+    nodes:[
+      ['Carburant','Distance → volume en L → énergie finale en kWh. Applique ensuite le coefficient primaire du carburant.'],
+      ['Électricité','Distance → durée en h → énergie finale en kWh. Applique ensuite le coefficient primaire de l’électricité.'],
+      ['Comparer','Les deux résultats sont maintenant en kWh EP. Compare pour le même trajet et précise les coefficients du sujet.']
+    ]
+  }
+};
+const simulationData = {
+  ept:{label:'Durée d’utilisation',title:'Même puissance, autre durée',intro:'Le projecteur reste à 320 W. Modifie la durée pour observer ce qui change.',min:15,max:120,step:5,initial:45,suffix:'min',
+    value:t=>[t,'min',320*t/60,'Wh','Puissance fixe · 320 W']},
+  paroi:{label:'Épaisseur de la couche',title:'Une couche plus épaisse',intro:'La surface reste de 4 m², λ vaut 0,04 W/(m·K) et ΔT vaut 20 K.',min:4,max:20,step:1,initial:8,suffix:'cm',
+    value:e=>[e,'cm',4*20/(e/100/0.04),'W','Puissance traversante dans ce modèle']},
+  vent:{label:'Vitesse du vent',title:'La vitesse agit au cube',intro:'À surface et masse volumique fixes, compare au potentiel obtenu à 5 m/s.',min:3,max:15,step:1,initial:5,suffix:'m/s',
+    value:v=>[v,'m/s',(v/5)**3,'×','Facteur de puissance par rapport à 5 m/s']},
+  seuil:{label:'Distance parcourue',title:'Observer le seuil',intro:'A démarre à 0 kg CO₂e et émet 0,14 kg/km. B démarre à 1 800 kg et émet 0,08 kg/km.',min:0,max:60000,step:2500,initial:20000,suffix:'km',
+    value:d=>[d,'km',1800-0.06*d,'kg CO₂e','Écart B − A · positif si B émet davantage']},
+  budget:{label:'Nombre d’appareils identiques',title:'Une ligne du bilan',intro:'Chaque lampe utilise 12 W pendant 3 h. Change le nombre de lampes.',min:1,max:12,step:1,initial:4,suffix:'lampes',
+    value:q=>[q,'lampes',q*12*3,'Wh','Énergie du poste éclairage']}
+};
+
+const activity = 'AP-I2D-S1-S2-ATELIER';
+const version = 1;
+const key = activity + '-' + version;
+const exercises = [...formulas.map(f=>f.exercise),...themes.flatMap(t=>t.exercises),...dsReview,...dsExam];
+const byExercise = new Map(exercises.map(q=>[q.id,q]));
+const views = ['home','formulas','formula','themes','theme','ds','exam','work'];
+const statusChoices = ['À revoir','Je réussis avec de l’aide','Je peux refaire seul'];
+const nav = [['home','Départ'],['formulas','Formules'],['themes','Thèmes'],['ds','Révision du DS'],['work','Mon travail']];
+const root = document.querySelector('#main');
+const navRoot = document.querySelector('#main-nav');
+const fileInput = document.querySelector('#import-file');
+const get = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch]);
+const clampInt = (value,min,max) => Number.isInteger(value) ? Math.min(max,Math.max(min,value)) : min;
+const pick = (value,options,fallback) => options.includes(value) ? value : fallback;
+const text = (value,max) => typeof value==='string' ? value.slice(0,max) : '';
+const obj = value => value && typeof value==='object' && !Array.isArray(value) ? value : {};
+const emptyRecord = () => ({answers:{},first:{},attempts:0,hints:0,checked:false,reviewed:false});
+const fresh = () => ({
+  activity,version,view:'home',formula:'ept',origin:'formulas',theme:themes[0].id,themeQuestion:0,
+  station:0,examIndex:0,examStarted:false,examDone:false,records:{},
+  firstName:'',prefix:'',assessment:'',reflection:''
+});
+function sanitize(raw) {
+  if (!raw || raw.activity!==activity || raw.version!==version) throw new Error('Cette sauvegarde appartient à une autre activité ou version.');
+  const state = fresh();
+  state.view = pick(raw.view,views,state.view);
+  state.formula = pick(raw.formula,formulas.map(f=>f.id),state.formula);
+  state.theme = pick(raw.theme,themes.map(t=>t.id),state.theme);
+  state.origin = pick(raw.origin,['formulas','themes','theme','ds'],state.origin);
+  state.themeQuestion=clampInt(raw.themeQuestion,0,themes.find(t=>t.id===state.theme).exercises.length-1);
+  state.station=clampInt(raw.station,0,dsReview.length-1);
+  state.examIndex=clampInt(raw.examIndex,0,dsExam.length-1);
+  state.examStarted=raw.examStarted===true || state.view==='exam';
+  state.examDone=state.examStarted && raw.examDone===true;
+  state.firstName=text(raw.firstName,50);
+  state.prefix=text(raw.prefix,12);
+  state.assessment=pick(raw.assessment,statusChoices,'');
+  state.reflection=text(raw.reflection,850);
+  const answers = obj(raw.records);
+  for (const q of exercises) {
+    if (!answers[q.id] || (dsExam.includes(q) && !state.examStarted)) continue;
+    const saved=obj(answers[q.id]);
+    const record=emptyRecord();
+    for (const f of q.fields) {
+      const max=f.type==='text'?1400:80;
+      let current=text(obj(saved.answers)[f.key],max);
+      let first=text(obj(saved.first)[f.key],max);
+      if (f.options) {
+        const allowed=f.options.map(o=>o.value);
+        current=pick(current,allowed,'');
+        first=pick(first,allowed,'');
+      }
+      record.answers[f.key]=current;
+      record.first[f.key]=first;
+    }
+    record.attempts=dsExam.includes(q) && !state.examDone ? 0 : clampInt(saved.attempts,0,999);
+    record.hints=clampInt(saved.hints,0,q.hints.length);
+    record.checked=record.attempts>0 && saved.checked===true;
+    record.reviewed=saved.reviewed===true && (!dsExam.includes(q) || state.examDone);
+    state.records[q.id]=record;
+  }
+  return state;
+}
+let state=fresh();
+let localOK=true;
+let notice='';
+try {
+  const data=localStorage.getItem(key);
+  if (data) {
+    try { state=sanitize(JSON.parse(data)); }
+    catch { notice='La sauvegarde locale était illisible. Tu peux ouvrir une sauvegarde JSON.'; }
+  }
+} catch { localOK=false; }
+function storageText() {
+  return localOK ? 'Sauvegarde automatique dans ce navigateur.' :
+    'Sauvegarde locale indisponible. Télécharge le JSON pour reprendre.';
+}
+function persist() {
+  const previous=localOK;
+  try { localStorage.setItem(key,JSON.stringify(state));localOK=true; }
+  catch { localOK=false; }
+  if (previous!==localOK && get('storage')) get('storage').textContent=storageText();
+}
+function announce(message) {
+  notice=message;
+  if (get('notice')) get('notice').textContent=message;
+}
+function recordOf(id) { return state.records[id] || emptyRecord(); }
+function writableRecord(id) {
+  if (!state.records[id]) state.records[id]=emptyRecord();
+  return state.records[id];
+}
+function attempt(q) {
+  const record=writableRecord(q.id);
+  if (!record.attempts) record.first={...record.answers};
+  record.attempts=Math.min(999,record.attempts+1);
+  record.checked=true;
+}
+function parseNumber(raw) {
+  const value=raw.trim().replace(/\s/gu,'').replace(',','.').replace(/^−/u,'-').replace(/[×x]10\^/iu,'e');
+  return /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(value) ? Number(value) : NaN;
+}
+function grade(f,raw) {
+  const value=raw || '';
+  if (!value.trim()) return 'empty';
+  if (f.type==='text') return 'text';
+  if (f.type==='choice') return value===f.answer ? 'good' : 'retry';
+  const number=parseNumber(value);
+  if (!Number.isFinite(number)) return 'format';
+  return Math.abs(number-f.answer) <= Math.max(f.tolerance || 0,1e-9) ? 'good' : 'retry';
+}
+const messages={
+  empty:'Réponse à compléter.',
+  text:'Démarche enregistrée. Compare-la à la correction.',
+  good:'Correct.',
+  retry:'À revoir. Vérifie la donnée, la relation et l’unité.',
+  format:'Saisis un nombre, avec virgule ou point décimal.'
+};
+function used(q) {
+  const r=recordOf(q.id);
+  return r.attempts>0 || r.hints>0 || Object.values(r.answers).some(v=>v.trim());
+}
+function passed(q) {
+  const r=recordOf(q.id);
+  const closed=q.fields.filter(f=>f.type!=='text');
+  return r.checked && closed.length>0 && closed.every(f=>grade(f,r.answers[f.key])==='good');
+}
+function markStatus(q) {
+  if (passed(q)) return 'Vérifié';
+  if (used(q)) return 'En cours';
+  return 'À essayer';
+}
+function orderedOptions(q,f) {
+  const options=f.options.slice();
+  let seed=2166136261;
+  for (const ch of q.id+'-'+f.key) seed=Math.imul(seed^ch.charCodeAt(0),16777619)>>>0;
+  for (let i=options.length-1;i>0;i--) {
+    seed=(Math.imul(seed,1664525)+1013904223)>>>0;
+    const j=seed%(i+1);
+    [options[i],options[j]]=[options[j],options[i]];
+  }
+  return options;
+}
+const focus = id => get(id)?.focus();
+function show(view) {
+  state.view=view;
+  notice='';
+  persist();
+  render();
+  focus('title');
+}
+function openFormula(id) {
+  if (state.view!=='formula') state.origin=pick(state.view,['formulas','themes','theme','ds'],'formulas');
+  state.formula=id;
+  show('formula');
+}
+function currentFormula() { return formulas.find(f=>f.id===state.formula); }
+function currentTheme() { return themes.find(t=>t.id===state.theme); }
+function download(data,type,filename) {
+  const url=URL.createObjectURL(new Blob([data],{type}));
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=filename;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),45000);
+}
+function displayedAnswer(f,value) {
+  if (!value?.trim()) return '— non renseigné';
+  if (f.type==='choice') return f.options.find(o=>o.value===value)?.label || '— non renseigné';
+  return value.trim()+(f.unit?' '+f.unit:'');
+}
+function reportQuestion(q) {
+  const r=recordOf(q.id);
+  const lines=[q.id+' — '+q.title,'Énoncé : '+q.prompt];
+  for (const f of q.fields) {
+    lines.push(f.label+' : '+displayedAnswer(f,r.answers[f.key]));
+    if (r.attempts>0 && r.first[f.key]?.trim() && r.first[f.key]!==r.answers[f.key]) {
+      lines.push('  Première réponse vérifiée : '+displayedAnswer(f,r.first[f.key]));
+    }
+  }
+  lines.push('Vérifications demandées : '+r.attempts+' · Indices ouverts : '+r.hints+' · Correction consultée : '+(r.reviewed?'oui':'non'));
+  return lines.join('\n');
+}
+function report() {
+  const section = (name,qs) => '=== '+name+' ===\n'+(qs.length?'\n'+qs.map(reportQuestion).join('\n\n'):'Aucun exercice renseigné.');
+  return [
+    ['AP I2D — Atelier des formules et révision du DS','Prénom : '+state.firstName,
+      'Trois premières lettres du nom : '+state.prefix,'Activité : '+activity+' · Version '+version].join('\n'),
+    section('EXERCICES DE FORMULES',formulas.map(f=>f.exercise).filter(used)),
+    section('EXERCICES PAR THÈME',themes.flatMap(t=>t.exercises).filter(used)),
+    section('RÉVISION GUIDÉE DU DS',dsReview.filter(used)),
+    (state.examStarted ? section('MINI-DS · '+(state.examDone?'validé, réponses figées':'en cours, réponses provisoires'),dsExam) : '=== MINI-DS ===\nNon commencé.'),
+    '=== BILAN DE L’ÉLÈVE ===\nAuto-positionnement : '+(state.assessment||'— non renseigné')+'\nMa méthode ou ma prochaine étape : '+(state.reflection.trim()||'— non renseigné')
+  ].join('\n\n')+'\n';
+}
+function fileName() {
+  const first=state.firstName.trim().normalize('NFC').replace(/[^\p{L}\p{M}’' -]/gu,'').replace(/\s+/gu,'-');
+  const prefix=state.prefix.trim().normalize('NFC').toUpperCase();
+  return 'AP_I2D_S1_S2_'+(first||'Prenom')+'_'+(/^\p{L}{3}$/u.test(prefix)?prefix:'ABC')+'.txt';
+}
+function saveReport() {
+  const first=get('first-name');
+  const prefix=get('last-prefix');
+  const name=first.value.trim().normalize('NFC');
+  const letters=prefix.value.trim().normalize('NFC').toUpperCase();
+  first.setCustomValidity(/^\p{L}[\p{L}\p{M}’' -]*$/u.test(name)?'':'Saisis ton prénom.');
+  prefix.setCustomValidity(/^\p{L}{3}$/u.test(letters)?'':'Saisis exactement les trois premières lettres de ton nom.');
+  if (!first.reportValidity() || !prefix.reportValidity()) return;
+  state.firstName=name;
+  state.prefix=letters;
+  first.value=name;
+  prefix.value=letters;
+  get('rendu-preview').textContent=fileName();
+  persist();
+  download(report(),'text/plain;charset=utf-8',fileName());
+  announce('Le téléchargement du TXT a été demandé. Dépose-le dans l’espace de cours.');
+}
+
+const ui = {query:'',sequence:0,themeSequence:0,symbol:0,recall:false,example:0,nodes:{},sim:{}};
+const formatNumber = new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2});
+function button(label,action,id='',style='btn',extra='') {
+  return `<button type="button" class="${style}" data-action="${action}"${id?` data-id="${esc(id)}"`:''} ${extra}>${esc(label)}</button>`;
+}
+function header(title,sub,kicker='') {
+  return `<header class="page-head">
+    ${kicker?`<p class="eyebrow">${esc(kicker)}</p>`:''}
+    <h1 id="title" tabindex="-1">${esc(title)}</h1>
+    <p class="lede">${esc(sub)}</p>
+  </header>`;
+}
+function storageControls() {
+  return `<footer class="bottom">
+    <p class="small muted storage" id="storage">${storageText()}</p>
+    ${button('Sauvegarder en JSON','backup','','quiet')}
+    ${button('Ouvrir une sauvegarde','import','','quiet')}
+    ${state.examStarted || state.firstName || Object.keys(state.records).length
+      ? button('Nouveau travail','reset','','quiet') : ''}
+  </footer>
+  <p class="notice" id="notice" role="status">${esc(notice)}</p>`;
+}
+function simResult(id,value) {
+  const [input,suffix,result,unit,caption] = simulationData[id].value(value);
+  return `${formatNumber.format(result)} ${esc(unit)}<span class="sim-caption">${esc(caption)} · ${formatNumber.format(input)} ${esc(suffix)}</span>`;
+}
+function simulation(id) {
+  const s=simulationData[id];
+  const value=ui.sim[id]??s.initial;
+  return `<section class="sim stack" aria-labelledby="sim-title-${id}">
+    <p class="eyebrow">À manipuler</p>
+    <h2 id="sim-title-${id}">${esc(s.title)}</h2>
+    <p class="muted small">${esc(s.intro)}</p>
+    <output id="sim-output-${id}" class="sim-display" for="sim-${id}" aria-live="polite">${simResult(id,value)}</output>
+    <div>
+      <label for="sim-${id}">${esc(s.label)}</label>
+      <input id="sim-${id}" type="range" min="${s.min}" max="${s.max}" step="${s.step}" value="${value}" data-sim="${id}" aria-valuetext="${value} ${esc(s.suffix)}">
+      <div class="range-labels"><span>${s.min} ${esc(s.suffix)}</span><span>${s.max} ${esc(s.suffix)}</span></div>
+    </div>
+  </section>`;
+}
+function home() {
+  const tiles=[
+    ['Décoder les formules','Lis les symboles, déroule un calcul et essaie sur un autre exemple.','formulas','Ouvrir les formules'],
+    ['Réviser un thème','Ressources, cycle de vie, SysML, chaînes fonctionnelles et applications.','themes','Choisir un thème'],
+    ['Préparer le DS','Quatre postes guidés, puis un mini-DS sur des cas différents.','ds','Aller à la révision']
+  ];
+  return `<section class="hero" aria-labelledby="title">
+    <div class="stack">
+      <p class="eyebrow">Première STI2D · Séquences 1 et 2</p>
+      <h1 id="title" tabindex="-1">Comprendre les formules, les utiliser.</h1>
+      <p class="lede">Choisis ce que tu veux savoir faire. Chaque relation a une méthode, un exemple à dérouler et un exercice.</p>
+      <div class="actions">${button('Explorer les formules','view','formulas')}${button('Réviser le DS','view','ds','quiet')}</div>
+      <p class="hero-note">${formulas.length} fiches de calcul · ${themes.length} thèmes · ${exercises.length} exercices</p>
+    </div>
+    ${simulation('ept')}
+  </section>
+  <section class="gap-top" aria-labelledby="entry-title">
+    <div class="grid-title"><h2 id="entry-title">Par où commencer ?</h2><p class="muted">Choisis selon ton besoin.</p></div>
+    <div class="grid">${tiles.map(([title,lead,view,action],i)=>`<article class="card ${i===0?'hot':''}">
+      <h3>${esc(title)}</h3><p class="muted">${esc(lead)}</p>${button(action,'view',view,'link-btn')}
+    </article>`).join('')}</div>
+  </section>`;
+}
+function normalized(s) {
+  return s.replace(/<[^>]+>/gu,' ').normalize('NFD').replace(/\p{M}/gu,'').toLocaleLowerCase('fr-FR')
+    .replace(/[=×·/]/gu,' ').trim();
+}
+function formulaList() {
+  const tokens=normalized(ui.query).split(/\s+/u).filter(Boolean);
+  const matched=formulas.filter(f=>{
+    const source=normalized([f.title,f.cue,...f.eq,...f.defs.flatMap(d=>[d.label,d.reading,d.meaning,d.unit])].join(' '));
+    return (!ui.sequence || f.seq.includes(ui.sequence)) && tokens.every(token=>source.includes(token));
+  });
+  const sections=groups.map(group=>{
+    const items=matched.filter(f=>f.group===group.id);
+    if (!items.length) return '';
+    return `<section class="group-block" aria-labelledby="group-${group.id}">
+      <h2 id="group-${group.id}">${esc(group.name)}</h2>
+      <p class="muted">${esc(group.lead)}</p>
+      <div class="grid">${items.map(f=>`<article class="card">
+        <span class="badge">${f.seq.length===2?'S1 et S2':'Séquence '+f.seq[0]}</span>
+        ${button(f.title,'formula',f.id,'topic-btn')}
+        <p class="mini-equation">${f.eq[0]}</p>
+        <p class="small muted">${esc(f.cue)}</p>
+      </article>`).join('')}</div>
+    </section>`;
+  }).join('');
+  return `<p class="small muted" role="status">${matched.length} fiche${matched.length===1?'':'s'}</p>
+    ${sections || '<p class="note">Essaie un autre mot, un symbole ou le filtre Toutes.</p>'}`;
+}
+function filters(action,active) {
+  return `<div class="filters" aria-label="Filtrer par séquence" role="group">
+    ${[['0','Toutes'],['1','Séquence 1'],['2','Séquence 2']].map(([id,label])=>
+      button(label,action,id,'filter',`aria-pressed="${Number(id)===active}"`)).join('')}
+  </div>`;
+}
+function catalog() {
+  return `${header('Carnet des formules','Cherche une grandeur ou un symbole, puis ouvre la fiche qui correspond à ton calcul.','Calculer et comprendre')}
+  <div class="control-bar">
+    <div class="search"><label for="formula-search">Chercher une formule</label>
+      <input type="search" id="formula-search" placeholder="Ex. lambda, kWh, autonomie" value="${esc(ui.query)}">
+    </div>
+    ${filters('formula-filter',ui.sequence)}
+  </div>
+  <details class="panel stack">
+    <summary>Lire les signes et les indices</summary>
+    <dl>
+      <div><dt>Δ · delta</dt><dd>Un écart. ΔT se lit « delta T » et désigne une différence de température.</dd></div>
+      <div><dt>Σ · sigma majuscule</dt><dd>Une somme. Σ E indique qu’il faut additionner les énergies du périmètre.</dd></div>
+      <div><dt>≈ · environ égal</dt><dd>Une approximation, par exemple à cause d’un arrondi ou d’une hypothèse de calcul.</dd></div>
+      <div><dt>x² et x³ · x au carré et x au cube</dt><dd>x² signifie x × x. x³ signifie x × x × x.</dd></div>
+      <div><dt>E<sub>u</sub> · E indice u</dt><dd>Un indice précise de quelle énergie il s’agit. Ici, u signifie utile. Dans E<sub>a</sub>, a signifie absorbée.</dd></div>
+      <div><dt>W·h et J/(kg·K)</dt><dd>Le point médian indique une multiplication. La barre indique une division. Les parenthèses regroupent le dénominateur.</dd></div>
+    </dl>
+  </details>
+  <div class="gap-top" id="formula-results">${formulaList()}</div>`;
+}
+function symbolBox(symbol) {
+  return `<p><strong>${esc(symbol.label)}</strong> · se lit « ${esc(symbol.reading)} »</p>
+    <p>${esc(symbol.meaning)}</p>
+    <p class="small muted"><strong>Unité ou repère</strong> · ${esc(symbol.unit)}</p>`;
+}
+function formulaPage() {
+  const f=currentFormula();
+  const origin=state.origin==='theme'||state.origin==='themes'?'Retour au thème':state.origin==='ds'?'Retour au poste du DS':'Toutes les formules';
+  return `<div class="actions">${button(origin,'view',state.origin,'quiet')}</div>
+  ${header(f.title,f.cue,f.seq.length===2?'Séquences 1 et 2':'Séquence '+f.seq[0])}
+  <div class="detail-grid">
+    <section class="panel stack" aria-labelledby="relation-title">
+      <h2 id="relation-title">La relation</h2>
+      <div id="equations" class="stack" ${ui.recall?'hidden':''}>${f.eq.map(eq=>`<p class="eq">${eq}</p>`).join('')}</div>
+      <p id="recall-prompt" class="note" ${ui.recall?'':'hidden'}>Retrouve la relation sur ton brouillon. Prononce les symboles et note leurs unités avant de vérifier.</p>
+      ${button(ui.recall?'Afficher la formule':'Me tester de mémoire','recall','','btn secondary',`id="recall-button" aria-controls="equations" aria-pressed="${ui.recall}"`)}
+      <p class="small muted"><strong>Attention.</strong> ${esc(f.trap)}</p>
+    </section>
+    <section class="panel stack" aria-labelledby="symbol-title">
+      <h2 id="symbol-title">Lire les symboles</h2>
+      <p class="muted small">Ouvre un symbole pour lire son nom, son rôle et son unité.</p>
+      <div class="symbols" role="group" aria-label="Symboles de la fiche">${f.defs.map((s,i)=>
+        button(s.label,'symbol',String(i),'symbol',`aria-controls="symbol-info" aria-pressed="${i===ui.symbol}"`)).join('')}</div>
+      <div class="symbol-box" id="symbol-info" aria-live="polite">${symbolBox(f.defs[ui.symbol])}</div>
+      <details>
+        <summary>Toutes les grandeurs et leurs unités</summary>
+        <dl>${f.defs.map(s=>`<div><dt>${esc(s.label)} · ${esc(s.reading)}</dt><dd>${esc(s.meaning)} ${esc(s.unit)}</dd></div>`).join('')}</dl>
+      </details>
+    </section>
+  </div>
+  <div class="detail-grid gap-top">
+    <section class="panel stack" aria-labelledby="method-title">
+      <h2 id="method-title">La démarche</h2>
+      <ol class="method">${f.method.map(step=>`<li>${esc(step)}</li>`).join('')}</ol>
+      <div class="recall"><strong>À mémoriser</strong><p>${esc(f.memo)}</p></div>
+    </section>
+    <section class="panel example stack" aria-labelledby="example-title">
+      <h2 id="example-title">Exemple guidé</h2>
+      <p>${esc(f.ex[0])}</p>
+      <ol class="method" id="example-steps" tabindex="-1">${f.ex.slice(1,ui.example+1).map(step=>`<li>${esc(step)}</li>`).join('')}</ol>
+      ${ui.example<f.ex.length-1
+        ? button(ui.example?'Étape suivante':'Afficher la première étape','example','','btn secondary')
+        : '<a href="#exercice-formule">Faire l’exercice seul</a>'}
+    </section>
+  </div>
+  ${simulationData[f.id]?`<div class="gap-top">${simulation(f.id)}</div>`:''}
+  <section id="exercice-formule" class="gap-top" aria-labelledby="formula-practice-title">
+    <h2 id="formula-practice-title">À toi de jouer</h2>
+    ${question(f.exercise)}
+  </section>`;
+}
+function themeCatalog() {
+  const visible=themes.filter(t=>!ui.themeSequence||t.seq===ui.themeSequence);
+  return `${header('Les thèmes des deux séquences','Retrouve une notion, explore un exemple et entraîne-toi.','Comprendre et relier')}
+  ${filters('theme-filter',ui.themeSequence)}
+  ${[1,2].map(seq=>{
+    const cards=visible.filter(t=>t.seq===seq);
+    return cards.length?`<section class="group-block" aria-labelledby="theme-seq-${seq}">
+      <div class="grid-title"><h2 id="theme-seq-${seq}">Séquence ${seq}</h2></div>
+      <div class="grid">${cards.map(t=>`<article class="card">
+        ${button(t.title,'theme',t.id,'topic-btn')}
+        <p class="muted">${esc(t.intro)}</p>
+        <p class="small">${t.exercises.filter(used).length}/${t.exercises.length} exercices commencés</p>
+      </article>`).join('')}</div>
+    </section>`:'';
+  }).join('')}`;
+}
+function diagram(index) {
+  const row=(y,label,dir,type,i)=>{
+    const source=dir==='right'?112:455;
+    const target=dir==='right'?455:112;
+    const lead=dir==='right'?-10:10;
+    return `<g class="${index===i?'active':''}">
+      <rect class="band-row" x="40" y="${y-28}" width="482" height="39" rx="7"/>
+      <text x="283" y="${y-7}" text-anchor="middle">${label}</text>
+      <line class="message-line ${type==='retour'?'reply':''}" x1="${source}" x2="${target}" y1="${y}" y2="${y}"/>
+      <path class="message-line" d="M${target+lead},${y-5} L${target},${y} L${target+lead},${y+5} ${type==='synchrone'?'Z':''}" fill="${type==='synchrone'?'#24458e':'none'}"/>
+    </g>`;
+  };
+  return `<svg class="sequence-svg" viewBox="0 0 566 247" role="img" aria-labelledby="svg-title svg-desc">
+    <title id="svg-title">Trois messages entre un contrôleur et un capteur</title>
+    <desc id="svg-desc">Le contrôleur demande une mesure. Le capteur renvoie la mesure avec un retour en pointillés, puis notifie un obstacle par une flèche ouverte.</desc>
+    <rect x="40" y="12" width="144" height="35" rx="7" fill="#dce7ff"/><text x="112" y="35" text-anchor="middle">Contrôleur</text>
+    <rect x="390" y="12" width="130" height="35" rx="7" fill="#dce7ff"/><text x="455" y="35" text-anchor="middle">Capteur</text>
+    <line class="life" x1="112" x2="112" y1="47" y2="230"/><line class="life" x1="455" x2="455" y1="47" y2="230"/>
+    ${row(94,'1 · Demander une mesure','right','synchrone',0)}
+    ${row(151,'2 · Renvoyer la mesure','left','retour',1)}
+    ${row(208,'3 · Notifier un obstacle','left','asynchrone',2)}
+  </svg>`;
+}
+function widgetContent(t) {
+  const widget=themeWidgets[t.id];
+  const index=ui.nodes[t.id]??0;
+  return `<p class="muted">${esc(widget.intro)}</p>
+    ${widget.sequence?diagram(index):''}
+    <div class="flow" role="group" aria-label="Éléments à explorer">
+      ${widget.nodes.map(([label],i)=>
+        (i && widget.arrows?'<span class="arrow" aria-hidden="true">→</span>':'')+
+        button(label,'widget',String(i),'flow-node',`aria-pressed="${index===i}" aria-controls="widget-info"`)).join('')}
+    </div>
+    <p id="widget-info" class="note" aria-live="polite">${esc(widget.nodes[index][1])}</p>`;
+}
+function formulaLinks(ids) {
+  return `<div class="actions">${ids.map(id=>button(formulas.find(f=>f.id===id).title,'formula',id,'link-btn')).join('')}</div>`;
+}
+function themePage() {
+  const t=currentTheme();
+  const widget=themeWidgets[t.id];
+  const sim=({'s1-energie':'ept','s1-carbone':'seuil','s2-thermique':'paroi','s2-eclairage':'budget','s2-renouvelables':'vent'})[t.id];
+  return `${button('Tous les thèmes','view','themes','quiet')}
+    ${header(t.title,t.intro,'Séquence '+t.seq)}
+    <section class="panel stack">
+      <h2>Les repères utiles</h2>
+      <ul class="dense-list">${t.key.map(point=>`<li>${esc(point)}</li>`).join('')}</ul>
+      <p class="small muted"><strong>Point de vigilance.</strong> ${esc(t.trap)}</p>
+      <details><summary>Lire un exemple</summary><p>${esc(t.example)}</p></details>
+      ${t.related.length?formulaLinks(t.related):''}
+    </section>
+    ${widget?`<section class="panel stack gap-top"><h2>${esc(widget.heading)}</h2><div class="stack" id="theme-widget">${widgetContent(t)}</div></section>`:''}
+    ${sim?`<div class="gap-top">${simulation(sim)}</div>`:''}
+    <section class="gap-top">
+      <h2>S’entraîner sur ce thème</h2>
+      <div class="filters" role="group" aria-label="Choisir un exercice">
+        ${t.exercises.map((q,i)=>button((i+1)+' · '+q.title,'theme-question',String(i),'tab',`aria-pressed="${i===state.themeQuestion}"`)).join('')}
+      </div>
+      ${question(t.exercises[state.themeQuestion])}
+    </section>`;
+}
+function fieldHTML(q,f,r,locked) {
+  const id='q-'+q.id+'-'+f.key;
+  const value=r.answers[f.key]??'';
+  const attrs=`id="${id}" data-q="${q.id}" data-field="${f.key}" aria-describedby="${id}-mark"`;
+  const label=`<label for="${id}">${esc(f.label)}${f.unit?` <span class="small muted">(${esc(f.unit)})</span>`:''}</label>`;
+  let control='';
+  if (f.type==='choice') {
+    control=`<select ${attrs} ${locked?'disabled':''}><option value="">Choisir une réponse</option>
+      ${orderedOptions(q,f).map(o=>`<option value="${esc(o.value)}" ${value===o.value?'selected':''}>${esc(o.label)}</option>`).join('')}
+    </select>`;
+  } else if (f.type==='text') {
+    control=`<textarea ${attrs} rows="3" maxlength="1400" ${locked?'readonly':''}>${esc(value)}</textarea>`;
+  } else {
+    control=`<div class="unit-field"><input ${attrs} type="text" inputmode="decimal" maxlength="80" autocomplete="off" value="${esc(value)}" ${locked?'readonly':''}>
+      ${f.unit?`<span class="unit" aria-hidden="true">${esc(f.unit)}</span>`:''}</div>`;
+  }
+  const result=r.checked?grade(f,value):'';
+  const tone=result==='good'?'good':result==='text'?'':'retry';
+  return `<div class="field ${f.type==='text'?'wide':''}">${label}${control}
+    <small class="mark" data-tone="${tone}" id="${id}-mark">${messages[result]||''}</small></div>`;
+}
+function question(q,{exam=false}={}) {
+  const r=recordOf(q.id);
+  const locked=exam&&state.examDone;
+  const closed=q.fields.filter(f=>f.type!=='text');
+  const tone=passed(q)?'good':'retry';
+  const feedback=!r.checked?'':closed.length===0?'Texte enregistré. Ouvre le corrigé pour comparer ta démarche.':
+    passed(q)?'Les réponses chiffrées ou à choix sont correctes.': 'Regarde les indications sous tes réponses et reprends ce qui manque.';
+  return `<article class="panel work-card stack" aria-labelledby="question-title">
+    <p class="eyebrow">${esc(q.id)}</p>
+    <h3 id="question-title" tabindex="-1">${esc(q.title)}</h3>
+    <p class="problem">${esc(q.prompt)}</p>
+    <form class="question-form" data-question="${q.id}">
+      <div class="question-fields">${q.fields.map(f=>fieldHTML(q,f,r,locked)).join('')}</div>
+      <p id="question-feedback" class="feedback" data-tone="${tone}" role="status" tabindex="-1">${esc(feedback)}</p>
+      ${exam?'':`<div class="actions">
+        <button type="submit" class="btn">${closed.length?'Vérifier mes réponses':'Enregistrer ma démarche'}</button>
+        ${r.hints<q.hints.length?button(r.hints?'Un autre indice':'Un indice','hint',q.id,'quiet'):''}
+        ${r.attempts&&!r.reviewed?button('Voir le corrigé','solution',q.id,'quiet'):''}
+      </div>`}
+    </form>
+    ${r.hints?`<div class="hint" id="hint-text" tabindex="-1">${q.hints.slice(0,r.hints).map((hint,i)=>`<p><strong>Indice ${i+1}.</strong> ${esc(hint)}</p>`).join('')}</div>`:''}
+    ${r.reviewed?`<div class="solution" id="solution" tabindex="-1"><strong>Correction.</strong> ${esc(q.solution)}</div>`:''}
+    ${locked&&!r.reviewed?button('Voir le corrigé','solution',q.id,'btn secondary'):''}
+  </article>`;
+}
+function reviewPage() {
+  const q=dsReview[state.station];
+  const item=dsGuides[state.station];
+  return `${header('Réviser le DS','Travaille une méthode avec les indices et les rappels, puis essaie le mini-DS sans aide intégrée.','Séquence 2')}
+    <div class="ds-layout">
+      <nav aria-label="Postes de révision"><ol class="stations">
+        ${dsGuides.map((g,i)=>`<li><button type="button" class="station" data-action="station" data-id="${i}" aria-pressed="${state.station===i}" aria-controls="ds-work">
+          <b aria-hidden="true">${i+1}</b><span>${esc(g.title)}</span><small>${markStatus(dsReview[i])}</small></button></li>`).join('')}
+      </ol></nav>
+      <div id="ds-work" class="stack">
+        <section class="panel stack" aria-labelledby="ds-method">
+          <h2 id="ds-method" tabindex="-1">${esc(item.title)}</h2>
+          <p>${esc(item.method)}</p>
+          <details><summary>Ouvrir le mémo</summary><ul class="dense-list">${item.reminders.map(line=>`<li>${esc(line)}</li>`).join('')}</ul></details>
+          ${formulaLinks(item.formulas)}
+        </section>
+        ${question(q)}
+      </div>
+    </div>
+    <div class="band stack gap-top">
+      <h2>Essai en autonomie</h2>
+      <p>Quatre nouveaux cas. Valide l’ensemble pour débloquer la correction. Tu peux commencer, t’arrêter et reprendre.</p>
+      ${button(state.examDone?'Revoir mon mini-DS':state.examStarted?'Reprendre le mini-DS':'Commencer le mini-DS','exam')}
+    </div>`;
+}
+function examTally() {
+  let correct=0,total=0;
+  for(const q of dsExam) for(const f of q.fields) if(f.type!=='text'){
+    total++;
+    if(grade(f,recordOf(q.id).answers[f.key])==='good')correct++;
+  }
+  return [correct,total];
+}
+function examPage() {
+  const q=dsExam[state.examIndex];
+  const [correct,total]=state.examDone?examTally():[0,0];
+  return `${button('Retour aux postes guidés','view','ds','quiet')}
+    ${header('Mini-DS d’entraînement',state.examDone?'Relis tes réponses et compare ta démarche au corrigé.':'Fais un essai au brouillon, puis saisis tes résultats et ta démarche. La correction s’ouvre après validation.','Séquence 2')}
+    ${state.examDone?`<p class="note"><strong>${correct} / ${total} réponses fermées correctes.</strong> Les démarches écrites restent à relire avec le corrigé.</p>`:''}
+    <div class="filters" role="group" aria-label="Choisir un cas du mini-DS">
+      ${dsExam.map((item,i)=>button((i+1)+' · '+dsGuides[i].title,'exam-question',String(i),'tab',`aria-pressed="${state.examIndex===i}"`)).join('')}
+    </div>
+    ${question(q,{exam:true})}
+    <div class="actions gap-top">
+      ${state.examIndex>0?button('Cas précédent','exam-question',String(state.examIndex-1),'btn secondary'):''}
+      ${state.examIndex<dsExam.length-1?button('Cas suivant','exam-question',String(state.examIndex+1),'btn secondary'):''}
+      ${state.examDone?button('Préparer mon rendu','view','work'):button('Valider le mini-DS','finish-exam')}
+    </div>`;
+}
+function workPage() {
+  const stats=[['Fiches de calcul',formulas.map(f=>f.exercise)],['Thèmes',themes.flatMap(t=>t.exercises)],['Révision guidée du DS',dsReview],['Mini-DS',dsExam]];
+  return `${header('Mon travail','Relis ce que tu as fait, puis télécharge le TXT à remettre. Tu peux sauvegarder et reprendre avec le fichier JSON.','Bilan personnel')}
+  <div class="detail-grid">
+    <section class="panel stack">
+      <h2>Mon parcours</h2>
+      <dl>${stats.map(([label,qs])=>`<div><dt>${label}</dt><dd>${qs.filter(used).length} / ${qs.length} exercices commencés</dd></div>`).join('')}</dl>
+      <div>
+        <label for="assessment">Comment je me situe</label>
+        <select id="assessment" data-state="assessment"><option value="">Choisir un repère</option>
+          ${statusChoices.map(choice=>`<option ${state.assessment===choice?'selected':''}>${esc(choice)}</option>`).join('')}
+        </select>
+      </div>
+      <div><label for="reflection">La démarche que je retiens ou ce que je reprendrai</label>
+        <textarea id="reflection" data-state="reflection" rows="3" maxlength="850">${esc(state.reflection)}</textarea>
+      </div>
+    </section>
+    <form id="identity-form" class="panel stack">
+      <h2>Identifier mon rendu</h2>
+      <div><label for="first-name">Prénom</label>
+        <input id="first-name" data-state="firstName" autocomplete="given-name" maxlength="50" required value="${esc(state.firstName)}"></div>
+      <div><label for="last-prefix">3 premières lettres du nom</label>
+        <input id="last-prefix" data-state="prefix" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="prefix-help" required value="${esc(state.prefix)}">
+        <p class="small muted" id="prefix-help">Saisis les lettres seules, par exemple DUB.</p></div>
+      <button type="submit" class="btn">Télécharger mon travail en TXT</button>
+      <p class="small" id="rendu-preview">${esc(fileName())}</p>
+      <p class="muted small">Dépose le TXT dans l’espace de cours indiqué par ton enseignant.</p>
+    </form>
+  </div>`;
+}
+const renderers={home,formulas:catalog,formula:formulaPage,themes:themeCatalog,theme:themePage,ds:reviewPage,exam:examPage,work:workPage};
+function render() {
+  const current=({formula:'formulas',theme:'themes',exam:'ds'})[state.view]||state.view;
+  navRoot.innerHTML=nav.map(([id,label])=>button(label,'view',id,'',id===current?'aria-current="page"':'')).join('');
+  root.innerHTML=renderers[state.view]()+storageControls();
+}
+
+function updateSearch(value) {
+  ui.query=value;
+  get('formula-results').innerHTML=formulaList();
+}
+function setRecall() {
+  ui.recall=!ui.recall;
+  get('equations').hidden=ui.recall;
+  get('recall-prompt').hidden=!ui.recall;
+  const trigger=get('recall-button');
+  trigger.textContent=ui.recall?'Afficher la formule':'Me tester de mémoire';
+  trigger.setAttribute('aria-pressed',String(ui.recall));
+}
+function setSymbol(index) {
+  ui.symbol=index;
+  get('symbol-info').innerHTML=symbolBox(currentFormula().defs[index]);
+  for (const b of root.querySelectorAll('[data-action="symbol"]')) {
+    b.setAttribute('aria-pressed',String(Number(b.dataset.id)===index));
+  }
+}
+function resetFormulaPanel() {
+  ui.symbol=0;
+  ui.example=0;
+  ui.recall=false;
+}
+function navigateQuestion(index,type) {
+  state[type]=index;
+  notice='';
+  persist();
+  render();
+  focus(type==='station'?'ds-method':'question-title');
+}
+function runCheck(form) {
+  const q=byExercise.get(form.dataset.question);
+  if (!q || dsExam.includes(q)) return;
+  const record=recordOf(q.id);
+  if (!Object.values(record.answers).some(v=>v.trim())) {
+    const feedback=get('question-feedback');
+    feedback.textContent='Essaie au moins une réponse avant de vérifier.';
+    feedback.focus();
+    return;
+  }
+  attempt(q);
+  persist();
+  render();
+  focus('question-feedback');
+}
+function finishExam() {
+  if (state.examDone || !state.examStarted) return;
+  const missing=dsExam.reduce((total,q)=>total+q.fields.filter(f=>!recordOf(q.id).answers[f.key]?.trim()).length,0);
+  if (missing && !confirm(missing+' réponse(s) manquante(s). Veux-tu valider le mini-DS et figer tes réponses ?')) return;
+  for (const q of dsExam) attempt(q);
+  state.examDone=true;
+  state.examIndex=0;
+  show('exam');
+}
+function handleField(target) {
+  const {q,field,state:property,sim}=target.dataset;
+  if (target.id==='formula-search') { updateSearch(target.value); return; }
+  if (sim) {
+    const data=simulationData[sim];
+    const value=Number(target.value);
+    if (!Number.isFinite(value)) return;
+    ui.sim[sim]=value;
+    target.setAttribute('aria-valuetext',value+' '+data.suffix);
+    get('sim-output-'+sim).innerHTML=simResult(sim,value);
+    return;
+  }
+  if (q) {
+    const task=byExercise.get(q);
+    if (!task || (state.examDone && dsExam.includes(task))) return;
+    const record=writableRecord(q);
+    record.answers[field]=target.value;
+    if (record.checked) {
+      record.checked=false;
+      get('question-feedback').textContent='';
+      for(const marker of root.querySelectorAll('.mark')) marker.textContent='';
+    }
+    persist();
+    return;
+  }
+  if (property) {
+    state[property]=target.value;
+    if (property==='firstName' || property==='prefix') {
+      target.setCustomValidity('');
+      get('rendu-preview').textContent=fileName();
+    }
+    persist();
+  }
+}
+root.addEventListener('input',event=>{
+  if (event.target.tagName!=='SELECT') handleField(event.target);
+});
+root.addEventListener('change',event=>{
+  if (event.target.tagName==='SELECT') handleField(event.target);
+});
+root.addEventListener('submit',event=>{
+  event.preventDefault();
+  if(event.target.id==='identity-form') saveReport();
+  else runCheck(event.target);
+});
+document.addEventListener('click',event=>{
+  const trigger=event.target.closest('button[data-action]');
+  if(!trigger || trigger.disabled) return;
+  const {action,id}=trigger.dataset;
+  switch(action) {
+    case 'view':
+      if (id==='formula' && state.view!=='formula') resetFormulaPanel();
+      show(id);
+      return;
+    case 'formula':
+      resetFormulaPanel();
+      openFormula(id);
+      return;
+    case 'formula-filter':
+      ui.sequence=Number(id);
+      for (const b of root.querySelectorAll('[data-action="formula-filter"]')) {
+        b.setAttribute('aria-pressed',String(b.dataset.id===id));
+      }
+      get('formula-results').innerHTML=formulaList();
+      return;
+    case 'theme-filter':
+      ui.themeSequence=Number(id);
+      render();
+      root.querySelector('[data-action="theme-filter"][data-id="'+id+'"]')?.focus();
+      return;
+    case 'theme':
+      if(state.theme!==id) state.themeQuestion=0;
+      state.theme=id;
+      show('theme');
+      return;
+    case 'symbol':
+      setSymbol(Number(id));
+      return;
+    case 'recall':
+      setRecall();
+      return;
+    case 'example':
+      ui.example=Math.min(currentFormula().ex.length-1,ui.example+1);
+      render();
+      focus('example-steps');
+      return;
+    case 'widget': {
+      const t=currentTheme();
+      ui.nodes[t.id]=Number(id);
+      get('theme-widget').innerHTML=widgetContent(t);
+      root.querySelector('[data-action="widget"][data-id="'+id+'"]')?.focus();
+      return;
+    }
+    case 'theme-question':
+      navigateQuestion(Number(id),'themeQuestion');
+      return;
+    case 'station':
+      navigateQuestion(Number(id),'station');
+      return;
+    case 'exam':
+      state.examStarted=true;
+      show('exam');
+      return;
+    case 'exam-question':
+      navigateQuestion(Number(id),'examIndex');
+      return;
+    case 'finish-exam':
+      finishExam();
+      return;
+    case 'hint': {
+      const q=byExercise.get(id);
+      const record=writableRecord(id);
+      record.hints=Math.min(record.hints+1,q.hints.length);
+      persist();
+      render();
+      focus('hint-text');
+      return;
+    }
+    case 'solution': {
+      const q=byExercise.get(id);
+      const record=writableRecord(id);
+      if (dsExam.includes(q)?!state.examDone:!record.attempts) return;
+      record.reviewed=true;
+      persist();
+      render();
+      focus('solution');
+      return;
+    }
+    case 'backup':
+      download(JSON.stringify(state,null,2),'application/json','Atelier_I2D_S1_S2_sauvegarde.json');
+      announce('Le téléchargement du JSON a été demandé. Garde ce fichier pour reprendre.');
+      return;
+    case 'import':
+      fileInput.click();
+      return;
+    case 'reset':
+      if (!confirm('Commencer un nouveau travail sur cet appareil ? Télécharge d’abord ta sauvegarde si tu veux garder le travail en cours.')) return;
+      state=fresh();
+      resetFormulaPanel();
+      ui.sim={};
+      show('home');
+      return;
+  }
+});
+fileInput.addEventListener('change',async()=>{
+  const file=fileInput.files[0];
+  fileInput.value='';
+  if(!file) return;
+  if(file.size>500000) { announce('Ce fichier est trop volumineux pour une sauvegarde de cette activité.'); return; }
+  try {
+    const restored=sanitize(JSON.parse(await file.text()));
+    if ((Object.keys(state.records).length || state.examStarted || state.firstName) && !confirm('Ouvrir cette sauvegarde à la place du travail actuel ?')) return;
+    state=restored;
+    resetFormulaPanel();
+    persist();
+    notice='Sauvegarde ouverte. Tu as retrouvé tes réponses et le dernier écran.';
+    render();
+    focus('title');
+  } catch(error) {
+    announce(error instanceof SyntaxError?'Ce fichier JSON est illisible.':error.message);
+  }
+});
+render();
+
+</script>
+</body>
+</html>
